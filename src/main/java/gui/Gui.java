@@ -56,7 +56,7 @@ public class Gui {
 	 *            the parent shell
 	 */
 	public void createContents(final Shell shell) {
-		String separator = System.lineSeparator();
+		final String separator = System.lineSeparator();
 
 		shell.setLayout(new GridLayout(7, true));
 
@@ -64,7 +64,7 @@ public class Gui {
 		new Label(shell, SWT.NONE).setText("File Name : ");
 
 		/* Text contains file paths */
-		Text fileName = new Text(shell, SWT.BORDER);
+		final Text fileName = new Text(shell, SWT.BORDER);
 		GridData data = new GridData(GridData.FILL_BOTH);
 		data.horizontalSpan = 5;
 		fileName.setLayoutData(data);
@@ -85,7 +85,7 @@ public class Gui {
 		inputCountLabel.setText("Input Words");
 
 		/* Text contains number of input words */
-		Text inputCount = new Text(shell, SWT.BORDER);
+		final Text inputCount = new Text(shell, SWT.BORDER);
 		data = new GridData(GridData.FILL_BOTH);
 		inputCount.setLayoutData(data);
 		inputCount.setText("0");
@@ -98,7 +98,7 @@ public class Gui {
 		browser.setLayoutData(data);
 
 		/* Text contains input words */
-		Text inputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		final Text inputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
 		data = new GridData(GridData.FILL_BOTH);
 		data.heightHint = 200;
 		data.verticalSpan = 3;
