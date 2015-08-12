@@ -16,7 +16,9 @@ import org.eclipse.swt.widgets.*;
 /**
  * This program auto generates flash cards.
  *
- * Author: Long Lee Website: flashcardsgenerator.com Last modified: August 2015
+ * Author: Long Lee 
+ * Website: flashcardsgenerator.com 
+ * Last modified: August 2015
  */
 
 public class Gui {
@@ -24,7 +26,12 @@ public class Gui {
 	// These filter names are displayed to the user in the file dialog. Note
 	// that the inclusion of the actual extension in parentheses is optional,
 	// and doesn't have any effect on which files are displayed.
-	private static final String[] FILTER_NAMES = { "Plan Text Files (*.txt)", "Comma Separated Values Files (*.csv)", "OpenOffice.org Spreadsheet Files (*.sxc)", "Microsoft Excel Spreadsheet Files (*.xls)", "All Files (*.*)" };
+	private static final String[] FILTER_NAMES = { 
+			"Plan Text Files (*.txt)", 
+			"Comma Separated Values Files (*.csv)", 
+			"Open Office Spreadsheet Files (*.sxc)", 
+			"Microsoft Excel Spreadsheet Files (*.xls)", 
+			"All Files (*.*)" };
 
 	// These filter extensions are used to filter which files are displayed.
 	private static final String[] FILTER_EXTS = { "*.txt", "*.csv", "*.sxc", "*.xls", "*.*" };
@@ -53,7 +60,7 @@ public class Gui {
 	 * Creates the contents for the window
 	 * 
 	 * @param shell
-	 *            the parent shell
+	 * the parent shell
 	 */
 	public void createContents(final Shell shell) {
 		final String separator = System.lineSeparator();
@@ -275,7 +282,7 @@ public class Gui {
 	 * The application entry point
 	 * 
 	 * @param args
-	 *            the command line arguments
+	 * the command line arguments
 	 */
 	public static void main(String[] args) {
 		new Gui().run();

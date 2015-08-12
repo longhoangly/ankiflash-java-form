@@ -7,9 +7,9 @@ import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public class Handler {
+public class Generator {
 	public static void main(String[] args) throws IOException{
-		Handler flGenerator = new Handler();
+		Generator flGenerator = new Generator();
 		String[] wordList = flGenerator.getWordList("./wordList");
 		for (String word : wordList) {
 			System.out.println("input word: " + word);
