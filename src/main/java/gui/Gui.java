@@ -16,9 +16,7 @@ import org.eclipse.swt.widgets.*;
 /**
  * This program auto generates flash cards.
  *
- * Author: Long Lee 
- * Website: flashcardsgenerator.com 
- * Last modified: August 2015
+ * Author: Long Lee Website: flashcardsgenerator.com Last modified: August 2015
  */
 
 public class Gui {
@@ -26,12 +24,7 @@ public class Gui {
 	// These filter names are displayed to the user in the file dialog. Note
 	// that the inclusion of the actual extension in parentheses is optional,
 	// and doesn't have any effect on which files are displayed.
-	private static final String[] FILTER_NAMES = { 
-			"Plan Text Files (*.txt)", 
-			"Comma Separated Values Files (*.csv)", 
-			"Open Office Spreadsheet Files (*.sxc)", 
-			"Microsoft Excel Spreadsheet Files (*.xls)", 
-			"All Files (*.*)" };
+	private static final String[] FILTER_NAMES = { "Plan Text Files (*.txt)", "Comma Separated Values Files (*.csv)", "Open Office Spreadsheet Files (*.sxc)", "Microsoft Excel Spreadsheet Files (*.xls)", "All Files (*.*)" };
 
 	// These filter extensions are used to filter which files are displayed.
 	private static final String[] FILTER_EXTS = { "*.txt", "*.csv", "*.sxc", "*.xls", "*.*" };
@@ -42,7 +35,6 @@ public class Gui {
 	public void run() {
 		Display display = new Display();
 		Shell shell = new Shell(display);
-		shell.setSize(623, 350);
 		shell.setText("Flashcards Generator");
 
 		createContents(shell);
@@ -60,7 +52,7 @@ public class Gui {
 	 * Creates the contents for the window
 	 * 
 	 * @param shell
-	 * the parent shell
+	 *            the parent shell
 	 */
 	public void createContents(final Shell shell) {
 		final String separator = System.lineSeparator();
@@ -102,7 +94,7 @@ public class Gui {
 		data = new GridData(GridData.FILL_BOTH);
 		data.verticalSpan = 9;
 		data.horizontalSpan = 4;
-		browser.setLayoutData(data);
+		browser.setLayoutData(data); 
 
 		/* Text contains input words */
 		final Text inputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
@@ -125,7 +117,7 @@ public class Gui {
 		/* Label output card list */
 		new Label(shell, SWT.NONE).setText("Output Cards List");
 
-		/* Label Output Count */
+		/* Label output count */
 		Label outputCountLabel = new Label(shell, SWT.NONE);
 		outputCountLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		outputCountLabel.setText("Output Cards");
@@ -150,8 +142,33 @@ public class Gui {
 		save.setLayoutData(data);
 		save.setText("Save...");
 
+		/* Two empty labels */
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+
+		/* Check box use proxy */
+		Button useProxy = new Button(shell, SWT.CHECK);
+		useProxy.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		useProxy.setText("use proxy");
+
+		/* Label Proxy */
+		final Label proxyLabel = new Label(shell, SWT.NONE);
+		proxyLabel.setText("Proxy IP Address");
+		proxyLabel.setVisible(false);
+		proxyLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+
+		/* Text box contains proxy IP address */
+		final Text proxyIpAddress = new Text(shell, SWT.BORDER);
+		proxyIpAddress.setText("");
+		proxyIpAddress.setVisible(false);
+		data = new GridData(GridData.FILL_BOTH);
+		data.horizontalSpan = 2;
+		proxyIpAddress.setLayoutData(data);
+		
+		
 		/* Monitor and handle Open events */
 		open.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected to open multiple files
 				FileDialog dlg = new FileDialog(shell, SWT.MULTI);
@@ -160,7 +177,8 @@ public class Gui {
 				String fn = dlg.open();
 				if (fn != null) {
 					// Append all the selected files. Since getFileNames()
-					// returns only the names, and not the path, prepend the path,
+					// returns only the names, and not the path, prepend the
+					// path,
 					// normalizing if necessary
 					StringBuffer buf = new StringBuffer();
 					String totalContent = "";
@@ -204,19 +222,21 @@ public class Gui {
 
 		/* Monitor and handle Generate events */
 		generate.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected to generate flash cards
 				String input = inputList.getText();
 				String[] wordList = input.split(separator, -1);
-				for(String w:wordList){
-		    		System.out.println("input word: " + w);
-		    		
-		    	}
+				for (String w : wordList) {
+					System.out.println("input word: " + w);
+
+				}
 			}
 		});
 
 		/* Monitor and handle Save events */
 		save.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected to save a file
 				FileDialog dlg = new FileDialog(shell, SWT.SAVE);
@@ -232,6 +252,36 @@ public class Gui {
 					} catch (IOException e) {
 						System.err.println("Exception occured: File not saved!");
 						e.printStackTrace();
+					}
+				}
+			}
+		});
+
+		/* Monitor and handle use proxy events */
+		useProxy.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				// User has selected use proxy
+				Button checkBox = (Button) event.getSource();
+				System.out.println(checkBox.getSelection());
+				GridData data = new GridData(GridData.FILL_BOTH);
+				data.exclude = checkBox.getSelection();
+				proxyLabel.setVisible(data.exclude);
+				proxyIpAddress.setVisible(data.exclude);
+				shell.layout(false);
+			}
+		});
+
+		/* Validate input contains only digits */
+		proxyIpAddress.addListener(SWT.Verify, new Listener() {
+			public void handleEvent(Event event) {
+				String string = event.text;
+				char[] chars = new char[string.length()];
+				string.getChars(0, chars.length, chars, 0);
+				for (int i = 0; i < chars.length; i++) {
+					if (!(('0' <= chars[i] && chars[i] <= '9') || chars[i] == '.' || chars[i] == ':') || proxyIpAddress.getText().length() > 19) {
+						event.doit = false;
+						return;
 					}
 				}
 			}
@@ -282,7 +332,7 @@ public class Gui {
 	 * The application entry point
 	 * 
 	 * @param args
-	 * the command line arguments
+	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
 		new Gui().run();
