@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
@@ -30,16 +33,28 @@ public class Gui {
 	// These filter extensions are used to filter which files are displayed.
 	private static final String[] FILTER_EXTS = { "*.txt", "*.csv", "*.sxc", "*.xls", "*.*" };
 
+	// Labels for the button
+	private static final String RUN = "Press to Run";
+	private static final String IS_RUNNING = "Running...";
+
 	/**
 	 * Runs the application
 	 */
 	public void run() {
 		Display display = new Display();
-		Shell shell = new Shell(display);
+		Shell parentShell = new Shell(display);
+		final Shell shell = new Shell(parentShell, SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
 		shell.setText("Flashcards Generator");
 
 		createContents(shell);
 		shell.pack();
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Point frameSize = shell.getSize();
+		int x = (screenSize.width - frameSize.x) / 2;
+		int y = (screenSize.height - frameSize.y) / 2;
+		shell.setLocation(x, y);
+
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -95,8 +110,8 @@ public class Gui {
 		inputList.setLayoutData(data);
 
 		/* Button Generate */
-		Button generate = new Button(shell, SWT.PUSH);
-		generate.setText("Generate...");
+		final Button generate = new Button(shell, SWT.PUSH);
+		generate.setText("Press to Run");
 		data = new GridData(GridData.FILL_BOTH);
 		generate.setLayoutData(data);
 
@@ -217,30 +232,36 @@ public class Gui {
 		generate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
+				// Change the button's text
+				generate.setText(IS_RUNNING);
+				
 				// User has selected to generate flash cards
 				Generator generator = new Generator();
 				String proxyStr = "";
 				useProxy.setGrayed(true);
 				if (proxyIpAddress.getText().contains(":"))
 					proxyStr = proxyIpAddress.getText();
-				System.out.println("proxy String: " + proxyStr);
+				//System.out.println("proxy String: " + proxyStr);
 
 				String input = inputList.getText();
 				String[] wordList = input.split(separator, -1);
 
 				for (String word : wordList) {
-					System.out.println("INPUT: " + word);
+					//System.out.println("INPUT: " + word);
 					try {
 						String ankiDeck = generator.generateFlashCards(word, proxyStr);
 						if (!ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
 							outputListHiden.append(ankiDeck);
 							outputList.append(generator.wrd + "\t" + generator.wordType + "\t" + generator.phonetic + "\t" + generator.pro_uk + "\t" + generator.pro_us + "\n");
-							outputCount.setText("" + outputList.getLineCount());
+							outputCount.setText("" + (outputList.getLineCount() - 1));
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
+				
+				// Change the button's text
+				generate.setText(RUN);
 			}
 		});
 
@@ -260,7 +281,7 @@ public class Gui {
 						writer.write(outputListHiden.getText());
 						writer.close();
 					} catch (IOException e) {
-						System.err.println("Exception occured: File not saved!");
+						//System.out.println("Exception occured: File not saved!");
 						e.printStackTrace();
 					}
 				}
@@ -273,7 +294,7 @@ public class Gui {
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected use proxy
 				Button checkBox = (Button) event.getSource();
-				System.out.println("useProxy: " + checkBox.getSelection());
+				//System.out.println("useProxy: " + checkBox.getSelection());
 
 				if (checkBox.getSelection() == false) {
 					proxyIpAddress.setText("");
@@ -352,4 +373,5 @@ public class Gui {
 	public static void main(String[] args) {
 		new Gui().run();
 	}
+
 }
