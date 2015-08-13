@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -59,26 +58,22 @@ public class Gui {
 	public void createContents(final Shell shell) {
 		final String separator = System.lineSeparator();
 
-		shell.setLayout(new GridLayout(7, true));
-
-		/* Label file names */
-		new Label(shell, SWT.NONE).setText("File Name : ");
-
-		/* Text contains file paths */
-		final Text fileName = new Text(shell, SWT.BORDER);
-		GridData data = new GridData(GridData.FILL_BOTH);
-		data.horizontalSpan = 5;
-		fileName.setLayoutData(data);
+		shell.setLayout(new GridLayout(3, true));
 
 		/* Button Open */
 		Button open = new Button(shell, SWT.PUSH);
 		open.setText("Open...");
-		data = new GridData(GridData.FILL_BOTH);
+		GridData data = new GridData(GridData.FILL_BOTH);
 		open.setLayoutData(data);
+
+		/* Text contains file paths */
+		final Text fileName = new Text(shell, SWT.BORDER);
+		data = new GridData(GridData.FILL_BOTH);
+		data.horizontalSpan = 2;
+		fileName.setLayoutData(data);
 
 		/* Label input word list */
 		new Label(shell, SWT.NONE).setText("Input Word List");
-		;
 
 		/* Label input count */
 		Label inputCountLabel = new Label(shell, SWT.NONE);
@@ -90,13 +85,6 @@ public class Gui {
 		data = new GridData(GridData.FILL_BOTH);
 		inputCount.setLayoutData(data);
 		inputCount.setText("0");
-
-		/* Browser to show flash cards */
-		final Browser browser = new Browser(shell, SWT.BORDER);
-		data = new GridData(GridData.FILL_BOTH);
-		data.verticalSpan = 9;
-		data.horizontalSpan = 4;
-		browser.setLayoutData(data);
 
 		/* Text contains input words */
 		final Text inputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.ALL);
@@ -112,8 +100,11 @@ public class Gui {
 		data = new GridData(GridData.FILL_BOTH);
 		generate.setLayoutData(data);
 
+		/* Text contains output cards */
+		final Text outputListHiden = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.READ_ONLY);
+		outputListHiden.setVisible(false);
+
 		/* Two empty labels */
-		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 
 		/* Label output card list */
@@ -143,10 +134,6 @@ public class Gui {
 		data = new GridData(GridData.FILL_BOTH);
 		save.setLayoutData(data);
 		save.setText("Save...");
-
-		/* Text contains output cards */
-		final Text outputListHiden = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.READ_ONLY);
-		outputListHiden.setVisible(false);
 
 		/* One empty labels */
 		new Label(shell, SWT.NONE);
@@ -221,7 +208,6 @@ public class Gui {
 
 					outputList.setText("");
 					outputListHiden.setText("");
-					browser.setText("");
 					outputCount.setText("0");
 				}
 			}
@@ -234,9 +220,11 @@ public class Gui {
 				// User has selected to generate flash cards
 				Generator generator = new Generator();
 				String proxyStr = "";
-				if (proxyIpAddress.getText().contains(":") && useProxy.isEnabled())
+				useProxy.setGrayed(true);
+				if (proxyIpAddress.getText().contains(":"))
 					proxyStr = proxyIpAddress.getText();
-
+				System.out.println("proxy String: " + proxyStr);
+				
 				String input = inputList.getText();
 				String[] wordList = input.split(separator, -1);
 
@@ -246,8 +234,8 @@ public class Gui {
 						String ankiDeck = generator.generateFlashCards(word, proxyStr);
 						if (!ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
 							outputListHiden.append(ankiDeck);
-							outputList.append(ankiDeck.substring(0, Math.min(ankiDeck.length(), 100)) + "\n");
-							browser.setText(generator.oxfContent);
+							outputList.append(generator.wrd + "\t" + generator.wordType + "\t" + generator.phonetic + "\t" + generator.pro_uk + "\t" + generator.pro_us + "\n");
+							outputCount.setText("" + outputList.getLineCount());
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -286,6 +274,11 @@ public class Gui {
 				// User has selected use proxy
 				Button checkBox = (Button) event.getSource();
 				System.out.println("useProxy: " + checkBox.getSelection());
+				
+				if(checkBox.getSelection() == false){
+					proxyIpAddress.setText("");
+				}
+				
 				GridData data = new GridData(GridData.FILL_BOTH);
 				data.exclude = checkBox.getSelection();
 				proxyLabel.setVisible(data.exclude);

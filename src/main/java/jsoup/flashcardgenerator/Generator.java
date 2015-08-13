@@ -18,8 +18,14 @@ import org.jsoup.select.Elements;
 
 public class Generator {
 
+	public String wrd = null;
+	public String wordType = null;
+	public String phonetic = null;
+	public String example = null;
+	public String pro_uk = null;
+	public String pro_us = null;
 	public String oxfContent = null;
-	
+
 	public Generator() {
 		try {
 			FileUtils.deleteDirectory(new File("./sounds/"));
@@ -72,7 +78,7 @@ public class Generator {
 		System.out.println("TITLE: " + doc.title());
 
 		/* Get word */
-		String wrd = getElementText(doc, "h2", 0);
+		wrd = getElementText(doc, "h2", 0);
 		System.out.println("WORD: " + wrd);
 		if (wrd.equalsIgnoreCase("")) {
 			return "THIS WORD DOES NOT EXIST...! [" + word + "]";
@@ -81,22 +87,22 @@ public class Generator {
 		}
 
 		/* Get word type */
-		String wordType = getElementText(doc, "span[class=pos]", 0);
+		wordType = getElementText(doc, "span[class=pos]", 0);
 		System.out.println("WORD TYPE: " + wordType);
 
 		/* Get combined word phonetic */
-		String phonetic = getPhonetic(doc);
+		phonetic = getPhonetic(doc);
 		System.out.println("PHONETIC: " + phonetic);
 
 		/* Get examples */
-		String example = getExamples(doc, wrd);
+		example = getExamples(doc, wrd);
 		System.out.println("EXAMPLES: " + example);
 
 		/* Get pronucication files */
-		String pro_uk = getPronunciation(doc, proxyStr, "div.pron-uk");
+		pro_uk = getPronunciation(doc, proxyStr, "div.pron-uk");
 		System.out.println("PRONUNCIATION UK: " + pro_uk);
 
-		String pro_us = getPronunciation(doc, proxyStr, "div.pron-us");
+		pro_us = getPronunciation(doc, proxyStr, "div.pron-us");
 		System.out.println("PRONUNCIATION US: " + pro_us);
 
 		/* Get images files */
@@ -215,6 +221,9 @@ public class Generator {
 		} else {
 			String proxyIpAddress = proxyStr.split(":")[0];
 			int proxyPort = Integer.parseInt(proxyStr.split(":")[1]);
+			System.out.println("proxyIpAddress: " + proxyIpAddress);
+			System.out.println("proxyPort: " + proxyPort);
+			
 			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyIpAddress, proxyPort));
 			yc = urlStr.openConnection(proxy);
 		}
