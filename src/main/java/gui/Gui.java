@@ -13,6 +13,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
+import jsoup.flashcardgenerator.Generator;
+
 /**
  * This program auto generates flash cards.
  *
@@ -90,14 +92,14 @@ public class Gui {
 		inputCount.setText("0");
 
 		/* Browser to show flash cards */
-		Browser browser = new Browser(shell, SWT.BORDER);
+		final Browser browser = new Browser(shell, SWT.BORDER);
 		data = new GridData(GridData.FILL_BOTH);
 		data.verticalSpan = 9;
 		data.horizontalSpan = 4;
-		browser.setLayoutData(data); 
+		browser.setLayoutData(data);
 
 		/* Text contains input words */
-		final Text inputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		final Text inputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.ALL);
 		data = new GridData(GridData.FILL_BOTH);
 		data.heightHint = 200;
 		data.verticalSpan = 3;
@@ -123,13 +125,13 @@ public class Gui {
 		outputCountLabel.setText("Output Cards");
 
 		/* Text contains number of output cards */
-		Text outputCount = new Text(shell, SWT.BORDER);
+		final Text outputCount = new Text(shell, SWT.BORDER);
 		data = new GridData(GridData.FILL_BOTH);
 		outputCount.setLayoutData(data);
 		outputCount.setText("0");
 
 		/* Text contains output cards */
-		final Text outputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		final Text outputList = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.READ_ONLY);
 		data = new GridData(GridData.FILL_BOTH);
 		data.heightHint = 200;
 		data.verticalSpan = 3;
@@ -142,12 +144,15 @@ public class Gui {
 		save.setLayoutData(data);
 		save.setText("Save...");
 
-		/* Two empty labels */
-		new Label(shell, SWT.NONE);
+		/* Text contains output cards */
+		final Text outputListHiden = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.READ_ONLY);
+		outputListHiden.setVisible(false);
+
+		/* One empty labels */
 		new Label(shell, SWT.NONE);
 
 		/* Check box use proxy */
-		Button useProxy = new Button(shell, SWT.CHECK);
+		final Button useProxy = new Button(shell, SWT.CHECK);
 		useProxy.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		useProxy.setText("use proxy");
 
@@ -164,8 +169,7 @@ public class Gui {
 		data = new GridData(GridData.FILL_BOTH);
 		data.horizontalSpan = 2;
 		proxyIpAddress.setLayoutData(data);
-		
-		
+
 		/* Monitor and handle Open events */
 		open.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -194,6 +198,8 @@ public class Gui {
 						}
 						buf.append(files[i]);
 						buf.append(" ; ");
+						buf.setLength(buf.length() - 2);
+						fileName.setText(buf.toString());
 
 						String filePath = dlgPath + files[i];
 						File wordListFile = new File(filePath);
@@ -211,11 +217,12 @@ public class Gui {
 					if (totalContent.endsWith(separator))
 						totalContent = totalContent.substring(0, totalContent.length() - 1);
 					inputList.setText(totalContent);
-
-					buf.setLength(buf.length() - 2);
-					fileName.setText(buf.toString());
-
 					inputCount.setText("" + inputList.getLineCount());
+
+					outputList.setText("");
+					outputListHiden.setText("");
+					browser.setText("");
+					outputCount.setText("0");
 				}
 			}
 		});
@@ -225,11 +232,26 @@ public class Gui {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected to generate flash cards
+				Generator generator = new Generator();
+				String proxyStr = "";
+				if (proxyIpAddress.getText().contains(":") && useProxy.isEnabled())
+					proxyStr = proxyIpAddress.getText();
+
 				String input = inputList.getText();
 				String[] wordList = input.split(separator, -1);
-				for (String w : wordList) {
-					System.out.println("input word: " + w);
 
+				for (String word : wordList) {
+					System.out.println("INPUT: " + word);
+					try {
+						String ankiDeck = generator.generateFlashCards(word, proxyStr);
+						if (!ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
+							outputListHiden.append(ankiDeck);
+							outputList.append(ankiDeck.substring(0, Math.min(ankiDeck.length(), 100)) + "\n");
+							browser.setText(generator.oxfContent);
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -243,11 +265,11 @@ public class Gui {
 				dlg.setFilterNames(FILTER_NAMES);
 				dlg.setFilterExtensions(FILTER_EXTS);
 				String fileName = saveFileName(dlg);
-				if (outputList != null) {
+				if (outputListHiden.getText() != "") {
 					try {
 						File file = new File(fileName);
 						FileWriter writer = new FileWriter(file);
-						writer.write(outputList.getText());
+						writer.write(outputListHiden.getText());
 						writer.close();
 					} catch (IOException e) {
 						System.err.println("Exception occured: File not saved!");
@@ -263,7 +285,7 @@ public class Gui {
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected use proxy
 				Button checkBox = (Button) event.getSource();
-				System.out.println(checkBox.getSelection());
+				System.out.println("useProxy: " + checkBox.getSelection());
 				GridData data = new GridData(GridData.FILL_BOTH);
 				data.exclude = checkBox.getSelection();
 				proxyLabel.setVisible(data.exclude);
