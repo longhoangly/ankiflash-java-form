@@ -12,7 +12,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
-import jsoup.flashcardgenerator.Generator;
+import generator.Generator;
 
 /**
  * This program auto generates flash cards.
@@ -224,7 +224,7 @@ public class Gui {
 				if (proxyIpAddress.getText().contains(":"))
 					proxyStr = proxyIpAddress.getText();
 				System.out.println("proxy String: " + proxyStr);
-				
+
 				String input = inputList.getText();
 				String[] wordList = input.split(separator, -1);
 
@@ -274,11 +274,11 @@ public class Gui {
 				// User has selected use proxy
 				Button checkBox = (Button) event.getSource();
 				System.out.println("useProxy: " + checkBox.getSelection());
-				
-				if(checkBox.getSelection() == false){
+
+				if (checkBox.getSelection() == false) {
 					proxyIpAddress.setText("");
 				}
-				
+
 				GridData data = new GridData(GridData.FILL_BOTH);
 				data.exclude = checkBox.getSelection();
 				proxyLabel.setVisible(data.exclude);

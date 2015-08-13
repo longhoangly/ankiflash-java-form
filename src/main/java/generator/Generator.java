@@ -1,4 +1,4 @@
-package jsoup.flashcardgenerator;
+package generator;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,13 +45,12 @@ public class Generator {
 	 * flGenerator.generateFlashCards(word, ""); } }
 	 ***/
 
-	public String[] getWordList(String filePath) throws IOException {
-		String separator = System.lineSeparator();
-		File jsonFile = new File(filePath);
-		String fileContent = FileUtils.readFileToString(jsonFile, "UTF-8");
-		String[] wordList = fileContent.split(separator, -1);
-		return wordList;
-	}
+	/***
+	 * public String[] getWordList(String filePath) throws IOException { String
+	 * separator = System.lineSeparator(); File jsonFile = new File(filePath);
+	 * String fileContent = FileUtils.readFileToString(jsonFile, "UTF-8");
+	 * String[] wordList = fileContent.split(separator, -1); return wordList; }
+	 ***/
 
 	public String generateFlashCards(String word, String proxyStr) throws IOException {
 		System.out.println("------ START -----");
@@ -128,7 +127,7 @@ public class Generator {
 		char tag = (char) wrd.charAt(0);
 		System.out.println("TAG: " + tag);
 
-		/* Get full anki deck string */
+		/* Get full Anki deck string */
 		String ankiDeck = wrd + "\t" + wordType + "\t" + phonetic + "\t" + example + "\t" + pro_uk + "\t" + pro_us + "\t" + thumb + "\t" + img + "\t" + oxfContent + "\t" + copyRight + "\t" + tag + "\n";
 		System.out.println("ANKI DECK LINE: " + ankiDeck);
 
@@ -223,7 +222,7 @@ public class Generator {
 			int proxyPort = Integer.parseInt(proxyStr.split(":")[1]);
 			System.out.println("proxyIpAddress: " + proxyIpAddress);
 			System.out.println("proxyPort: " + proxyPort);
-			
+
 			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyIpAddress, proxyPort));
 			yc = urlStr.openConnection(proxy);
 		}
