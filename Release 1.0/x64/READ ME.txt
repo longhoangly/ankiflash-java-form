@@ -1,0 +1,23 @@
+1. Install Java Virtual Machine (JVM) [jre-8u51-windows-xxx.exe]
+	a. Just click Next Next and Next...
+	b. Waiting for JVM is installed successfully
+	
+2. Run "Flashcards Generator x.x (xxx).jar"
+	a. Click Open to import word list (word list.txt)
+	b. Click 'Press to Run' button to generate flash cards
+	c. After completing generation process
+	d. Click Save button to save output flash cards [filename1.txt]
+	e. In the same folder, there are two new media folders [sounds, images]
+
+3. Import results into Anki Flashcards
+	a. Copy files from sounds and images folder into Anki media folder
+	b. Import output flash cards (filename1.txt) into Anki Deck
+	c. Enjoy it!
+	
+If you have any unclear, please see below video:
+https://www.youtube.com/watch?v=haVakxduW9s [part 1]
+https://www.youtube.com/watch?v=nbSS2E_QB2o [part 2]
+	
+Thanks,
+Long Ly
+	
