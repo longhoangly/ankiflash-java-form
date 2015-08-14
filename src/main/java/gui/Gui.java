@@ -5,11 +5,14 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -45,7 +48,11 @@ public class Gui {
 		Shell parentShell = new Shell(display);
 		final Shell shell = new Shell(parentShell, SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
 		shell.setText("Flashcards Generator");
-
+		
+		InputStream stream = Gui.class.getResourceAsStream("favicon.ico"); 
+		Image imgTrayIcon = new Image(display, stream);
+		shell.setImage(imgTrayIcon);
+		
 		createContents(shell);
 		shell.pack();
 
@@ -234,32 +241,35 @@ public class Gui {
 			public void widgetSelected(SelectionEvent event) {
 				// Change the button's text
 				generate.setText(IS_RUNNING);
-				
+
 				// User has selected to generate flash cards
-				Generator generator = new Generator();
-				String proxyStr = "";
-				useProxy.setGrayed(true);
-				if (proxyIpAddress.getText().contains(":"))
-					proxyStr = proxyIpAddress.getText();
-				//System.out.println("proxy String: " + proxyStr);
-
-				String input = inputList.getText();
-				String[] wordList = input.split(separator, -1);
-
-				for (String word : wordList) {
-					//System.out.println("INPUT: " + word);
-					try {
-						String ankiDeck = generator.generateFlashCards(word, proxyStr);
-						if (!ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
-							outputListHiden.append(ankiDeck);
-							outputList.append(generator.wrd + "\t" + generator.wordType + "\t" + generator.phonetic + "\t" + generator.pro_uk + "\t" + generator.pro_us + "\n");
-							outputCount.setText("" + (outputList.getLineCount() - 1));
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+				final Generator generator = new Generator();
 				
+				String input = inputList.getText();
+				final String[] wordList = input.split(separator, -1);
+
+				BusyIndicator.showWhile(Display.getDefault(), new Runnable() {
+					public void run() {
+						for (String word : wordList) {
+							// System.out.println("INPUT: " + word);
+							try {
+								String proxyStr = "";
+								if (proxyIpAddress.getText().contains(":"))
+									proxyStr = proxyIpAddress.getText();
+								// System.out.println("proxy String: " + proxyStr);
+								String ankiDeck = generator.generateFlashCards(word, proxyStr);
+								if (!ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
+									outputListHiden.append(ankiDeck);
+									outputList.append(generator.wrd + "\t" + generator.wordType + "\t" + generator.phonetic + "\t" + generator.pro_uk + "\t" + generator.pro_us + "\n");
+									outputCount.setText("" + (outputList.getLineCount() - 1));
+								}
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				});
+
 				// Change the button's text
 				generate.setText(RUN);
 			}
@@ -281,7 +291,8 @@ public class Gui {
 						writer.write(outputListHiden.getText());
 						writer.close();
 					} catch (IOException e) {
-						//System.out.println("Exception occured: File not saved!");
+						// System.out.println("Exception occured: File not
+						// saved!");
 						e.printStackTrace();
 					}
 				}
@@ -294,7 +305,7 @@ public class Gui {
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected use proxy
 				Button checkBox = (Button) event.getSource();
-				//System.out.println("useProxy: " + checkBox.getSelection());
+				// System.out.println("useProxy: " + checkBox.getSelection());
 
 				if (checkBox.getSelection() == false) {
 					proxyIpAddress.setText("");
