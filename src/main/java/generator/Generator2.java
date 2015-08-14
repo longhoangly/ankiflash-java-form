@@ -16,17 +16,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class Generator {
+public class Generator2 {
 
-	public String wrd = "";
-	public String wordType = "";
-	public String phonetic = "";
-	public String example = "";
-	public String pro_uk = "";
-	public String pro_us = "";
-	public String oxfContent = "";
+	public String wrd = null;
+	public String wordType = null;
+	public String phonetic = null;
+	public String example = null;
+	public String pro_uk = null;
+	public String pro_us = null;
+	public String oxfContent = null;
 
-	public Generator() {
+	public Generator2() {
 		try {
 			FileUtils.deleteDirectory(new File("./sounds/"));
 			FileUtils.deleteDirectory(new File("./images/"));
@@ -39,7 +39,7 @@ public class Generator {
 	}
 
 	public static void main(String[] args) throws IOException {
-		Generator flGenerator = new Generator();
+		Generator2 flGenerator = new Generator2();
 		String[] wordList = flGenerator.getWordList("./common-academic - splitted - 1.txt");
 		for (String word : wordList) {
 			flGenerator.generateFlashCards(word, "");
@@ -148,7 +148,7 @@ public class Generator {
 
 		/* Get NAmE word phonetic */
 		String phoneticNAmE = getElementText(doc, "span[class=phon]", 1);
-		if (phoneticBrE == "" && phoneticNAmE == "")
+		if (phoneticBrE == null && phoneticNAmE == null)
 			return "There is no phonetic for this word!";
 
 		/* Get combined word phonetic */
@@ -167,7 +167,7 @@ public class Generator {
 		if (exampleElement == null)
 			return "There is no example for this word.";
 
-		String example = "";
+		String example = null;
 		/* Get three more examples */
 		for (int i = 0; i < 4; i++) {
 			try {
@@ -185,8 +185,8 @@ public class Generator {
 	/* Get pronucication sound files */
 	public String getPronunciation(Document doc, String proxyStr, String querySound) throws IOException {
 		String pro_link = getElementAttribute(doc, querySound, 0, "data-src-mp3");
-		if (pro_link == "")
-			return "";
+		if (pro_link == null)
+			return null;
 		String pro_name = pro_link.split("/")[pro_link.split("/").length - 1];
 		InputStream is_mp3 = getContentViaProxy(pro_link, proxyStr);
 		FileOutputStream pro_mp3 = new FileOutputStream("./sounds/" + pro_name);
@@ -199,7 +199,7 @@ public class Generator {
 	public String getImages(Document doc, String proxyStr, String query, String attr) throws IOException {
 		String img_link = getElementAttribute(doc, query, 0, attr);
 		String word = getElementText(doc, "h2", 0);
-		if (img_link == "")
+		if (img_link == null)
 			return "<a href=\"https://www.google.com.vn/search?biw=1280&bih=661&tbm=isch&sa=1&q=" + word + "\" style=\"font-size: 15px; color: blue\">Images for this word</a>";
 
 		String img_name = img_link.split("/")[img_link.split("/").length - 1];
@@ -244,13 +244,13 @@ public class Generator {
 			return elements.get(index).attr(attributeKey);
 		} catch (NullPointerException e) {
 			System.err.println("Exception occured: NullPointerException!");
-			return "";
+			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.err.println("Exception occured: ArrayIndexOutOfBoundsException!");
-			return "";
+			return null;
 		} catch (IndexOutOfBoundsException e) {
 			System.err.println("Exception occured: IndexOutOfBoundsException!");
-			return "";
+			return null;
 		}
 	}
 
@@ -262,13 +262,13 @@ public class Generator {
 			return elements.get(index).text();
 		} catch (NullPointerException e) {
 			System.err.println("Exception occured: NullPointerException!");
-			return "";
+			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.err.println("Exception occured: ArrayIndexOutOfBoundsException!");
-			return "";
+			return null;
 		} catch (IndexOutOfBoundsException e) {
 			System.err.println("Exception occured: IndexOutOfBoundsException!");
-			return "";
+			return null;
 		}
 	}
 
