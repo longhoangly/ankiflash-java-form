@@ -251,12 +251,12 @@ public class Gui {
 				BusyIndicator.showWhile(Display.getDefault(), new Runnable() {
 					public void run() {
 						for (String word : wordList) {
-							// System.out.println("INPUT: " + word);
+							System.out.println("INPUT: " + word);
 							try {
 								String proxyStr = "";
 								if (proxyIpAddress.getText().contains(":"))
 									proxyStr = proxyIpAddress.getText();
-								// System.out.println("proxy String: " + proxyStr);
+								System.out.println("proxy String: " + proxyStr);
 								String ankiDeck = generator.generateFlashCards(word, proxyStr);
 								if (!ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
 									outputListHiden.append(ankiDeck);
@@ -291,8 +291,7 @@ public class Gui {
 						writer.write(outputListHiden.getText());
 						writer.close();
 					} catch (IOException e) {
-						// System.out.println("Exception occured: File not
-						// saved!");
+						System.out.println("Exception occured: File not saved!");
 						e.printStackTrace();
 					}
 				}
@@ -305,7 +304,7 @@ public class Gui {
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected use proxy
 				Button checkBox = (Button) event.getSource();
-				// System.out.println("useProxy: " + checkBox.getSelection());
+				System.out.println("useProxy: " + checkBox.getSelection());
 
 				if (checkBox.getSelection() == false) {
 					proxyIpAddress.setText("");

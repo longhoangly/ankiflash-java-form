@@ -53,7 +53,7 @@ public class Generator {
 	 ***/
 
 	public String generateFlashCards(String word, String proxyStr) throws IOException {
-		//System.out.println("------ START -----");
+		System.out.println("------ START -----");
 
 		/* Build URL */
 		String url = "";
@@ -69,16 +69,16 @@ public class Generator {
 		/* Get online HTML content */
 		Document doc = Jsoup.parse(is, "utf-8", "");
 		if (doc.title().contains("Did you spell it correctly?") || doc.title().contains("Oxford Learner's Dictionaries | Find the meanings")) {
-			//System.out.println("THIS WORD DOES NOT EXIST...! [" + word + "]");
-			//System.out.println("------ END -----");
-			//System.out.println();
+			System.err.println("THIS WORD DOES NOT EXIST...! [" + word + "]");
+			System.out.println("------ END -----");
+			System.out.println();
 			return "THIS WORD DOES NOT EXIST...! [" + word + "]";
 		}
-		//System.out.println("TITLE: " + doc.title());
+		System.out.println("TITLE: " + doc.title());
 
 		/* Get word */
 		wrd = getElementText(doc, "h2", 0);
-		//System.out.println("WORD: " + wrd);
+		System.out.println("WORD: " + wrd);
 		if (wrd.equalsIgnoreCase("")) {
 			return "THIS WORD DOES NOT EXIST...! [" + word + "]";
 		} else if (!doc.title().contains(wrd)) {
@@ -87,29 +87,29 @@ public class Generator {
 
 		/* Get word type */
 		wordType = getElementText(doc, "span[class=pos]", 0);
-		//System.out.println("WORD TYPE: " + wordType);
+		System.out.println("WORD TYPE: " + wordType);
 
 		/* Get combined word phonetic */
 		phonetic = getPhonetic(doc);
-		//System.out.println("PHONETIC: " + phonetic);
+		System.out.println("PHONETIC: " + phonetic);
 
 		/* Get examples */
 		example = getExamples(doc, wrd);
-		//System.out.println("EXAMPLES: " + example);
+		System.out.println("EXAMPLES: " + example);
 
 		/* Get pronucication files */
 		pro_uk = getPronunciation(doc, proxyStr, "div.pron-uk");
-		//System.out.println("PRONUNCIATION UK: " + pro_uk);
+		System.out.println("PRONUNCIATION UK: " + pro_uk);
 
 		pro_us = getPronunciation(doc, proxyStr, "div.pron-us");
-		//System.out.println("PRONUNCIATION US: " + pro_us);
+		System.out.println("PRONUNCIATION US: " + pro_us);
 
 		/* Get images files */
 		String thumb = getImages(doc, proxyStr, "img.thumb", "src");
-		//System.out.println("THUMB: " + thumb);
+		System.out.println("THUMB: " + thumb);
 
 		String img = getImages(doc, proxyStr, "a[class=topic]", "href");
-		//System.out.println("IMAGE: " + img);
+		System.out.println("IMAGE: " + img);
 
 		/* Get oxford content */
 		Element oxfContentElement = getElement(doc, "#entryContent", 0);
@@ -117,22 +117,22 @@ public class Generator {
 		oxfContent = oxfContent.replace("\t", "");
 		oxfContent = oxfContent.replace("\n", "");
 		oxfContent = oxfContent.replace("class=\"unbox\"", "class=\"unbox is-active\"");
-		//System.out.println("OXFORD CONTENT: " + oxfContent);
+		System.out.println("OXFORD CONTENT: " + oxfContent);
 
 		/* Get oxford copy right */
 		String copyRight = "This flashcard's content is get from the Oxford Advanced Learner's Dictionary.<br>Thanks Oxford Dictionary! Thanks for using!";
-		//System.out.println("COPY RIGHT: " + copyRight);
+		System.out.println("COPY RIGHT: " + copyRight);
 
 		/* Get word tag */
 		char tag = (char) wrd.charAt(0);
-		//System.out.println("TAG: " + tag);
+		System.out.println("TAG: " + tag);
 
 		/* Get full Anki deck string */
 		String ankiDeck = wrd + "\t" + wordType + "\t" + phonetic + "\t" + example + "\t" + pro_uk + "\t" + pro_us + "\t" + thumb + "\t" + img + "\t" + oxfContent + "\t" + copyRight + "\t" + tag + "\n";
-		//System.out.println("ANKI DECK LINE: " + ankiDeck);
+		System.out.println("ANKI DECK LINE: " + ankiDeck);
 
-		//System.out.println("------ END -----");
-		//System.out.println();
+		System.out.println("------ END -----");
+		System.out.println();
 
 		return ankiDeck;
 	}
@@ -170,7 +170,7 @@ public class Generator {
 			try {
 				example += getElement(doc, "span[class=x-g]", i).toString();
 			} catch (NullPointerException e) {
-				//System.out.println("Exception occured: NullPointerException!");
+				System.out.println("Exception occured: NullPointerException!");
 			}
 		}
 		example = example.replaceFirst(word, "{{c1::" + word + "}}");
@@ -220,8 +220,8 @@ public class Generator {
 		} else {
 			String proxyIpAddress = proxyStr.split(":")[0];
 			int proxyPort = Integer.parseInt(proxyStr.split(":")[1]);
-			//System.out.println("proxyIpAddress: " + proxyIpAddress);
-			//System.out.println("proxyPort: " + proxyPort);
+			System.out.println("proxyIpAddress: " + proxyIpAddress);
+			System.out.println("proxyPort: " + proxyPort);
 
 			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyIpAddress, proxyPort));
 			yc = urlStr.openConnection(proxy);
@@ -240,13 +240,13 @@ public class Generator {
 		try {
 			return elements.get(index).attr(attributeKey);
 		} catch (NullPointerException e) {
-			//System.out.println("Exception occured: NullPointerException!");
+			System.err.println("Exception occured: NullPointerException!");
 			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
-			//System.out.println("Exception occured: ArrayIndexOutOfBoundsException!");
+			System.err.println("Exception occured: ArrayIndexOutOfBoundsException!");
 			return null;
 		} catch (IndexOutOfBoundsException e) {
-			//System.out.println("Exception occured: IndexOutOfBoundsException!");
+			System.err.println("Exception occured: IndexOutOfBoundsException!");
 			return null;
 		}
 	}
@@ -258,13 +258,13 @@ public class Generator {
 		try {
 			return elements.get(index).text();
 		} catch (NullPointerException e) {
-			//System.out.println("Exception occured: NullPointerException!");
+			System.err.println("Exception occured: NullPointerException!");
 			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
-			//System.out.println("Exception occured: ArrayIndexOutOfBoundsException!");
+			System.err.println("Exception occured: ArrayIndexOutOfBoundsException!");
 			return null;
 		} catch (IndexOutOfBoundsException e) {
-			//System.out.println("Exception occured: IndexOutOfBoundsException!");
+			System.err.println("Exception occured: IndexOutOfBoundsException!");
 			return null;
 		}
 	}
@@ -276,13 +276,13 @@ public class Generator {
 		try {
 			return elements.get(index);
 		} catch (NullPointerException e) {
-			//System.out.println("Exception occured: NullPointerException!");
+			System.err.println("Exception occured: NullPointerException!");
 			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
-			//System.out.println("Exception occured: ArrayIndexOutOfBoundsException!");
+			System.err.println("Exception occured: ArrayIndexOutOfBoundsException!");
 			return null;
 		} catch (IndexOutOfBoundsException e) {
-			//System.out.println("Exception occured: IndexOutOfBoundsException!");
+			System.err.println("Exception occured: IndexOutOfBoundsException!");
 			return null;
 		}
 	}
