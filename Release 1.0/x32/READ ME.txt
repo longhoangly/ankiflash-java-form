@@ -14,7 +14,7 @@
 	b. Import output flash cards (filename1.txt) into Anki Deck
 	c. Enjoy it!
 	
-If you have any unclear, please see below video:
+If any unclear, please see below video:
 https://www.youtube.com/watch?v=haVakxduW9s [part 1]
 https://www.youtube.com/watch?v=nbSS2E_QB2o [part 2]
 	

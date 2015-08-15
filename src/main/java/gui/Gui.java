@@ -6,12 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.io.FileUtils;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -45,34 +40,38 @@ public class Gui {
 	private static final String IS_RUNNING = "Running...";
 
 	// Proxy Connection String
-	public String proxyStr = "";
+	private String proxyStr = "";
 
+	// Get system separator
 	final String separator = System.lineSeparator();
 
 	// Declare Gui elements
-	Button open = null;
-	Text fileName = null;
-	Label inputCountLabel = null;
-	Text inputCount = null;
-	Text inputList = null;
-	Button generate = null;
-	Button cancel = null;
-	ProgressBar bar = null;
-	Label outputCountLabel = null;
-	Text outputCount = null;
-	Text outputList = null;
-	Button save = null;
-	Button useProxy = null;
-	Label proxyLabel = null;
-	Text proxyIpAddress = null;
+	private Button open = null;
+	private Text fileName = null;
+	private Label inputCountLabel = null;
+	private Text inputCount = null;
+	private Text inputList = null;
+	private Button generate = null;
+	private Button cancel = null;
+	private ProgressBar bar = null;
+	private Label outputCountLabel = null;
+	private Text outputCount = null;
+	private Text outputList = null;
+	private Button save = null;
+	private Button useProxy = null;
+	private Label proxyLabel = null;
+	private Text proxyIpAddress = null;
+	Text outputListHiden = null;
+
+	// Thread to generate flash cards
+	private Thread getOxfFlsCards = null;
 
 	/**
 	 * Runs the application
 	 */
 	public void run() {
 		Display display = new Display();
-		Shell parentShell = new Shell(display);
-		final Shell shell = new Shell(parentShell, SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
+		Shell shell = new Shell(display, SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
 		shell.setText("Flashcards Generator");
 
 		InputStream stream = Gui.class.getResourceAsStream("favicon.ico");
@@ -145,15 +144,14 @@ public class Gui {
 		generate.setLayoutData(data);
 
 		/* Text contains output cards */
-		final Text outputListHiden = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.READ_ONLY);
+		outputListHiden = new Text(shell, SWT.MULTI | SWT.BORDER | SWT.READ_ONLY);
 		outputListHiden.setVisible(false);
 
 		/* Button Generate */
 		cancel = new Button(shell, SWT.PUSH);
-		generate.setText(RUN);
+		cancel.setText("Cancel");
 		data = new GridData(GridData.FILL_BOTH);
 		cancel.setLayoutData(data);
-		cancel.setText("Cancel");
 		cancel.setEnabled(false);
 
 		/* Status bar */
@@ -218,9 +216,11 @@ public class Gui {
 			public void widgetSelected(SelectionEvent event) {
 				// User has selected to open multiple files
 				FileDialog dlg = new FileDialog(shell, SWT.MULTI);
+
 				dlg.setFilterNames(FILTER_NAMES);
 				dlg.setFilterExtensions(FILTER_EXTS);
 				String fn = dlg.open();
+
 				if (fn != null) {
 					StringBuffer buf = new StringBuffer();
 					String totalContent = "";
@@ -234,6 +234,7 @@ public class Gui {
 							buf.append(File.separatorChar);
 							dlgPath = dlg.getFilterPath() + File.separatorChar;
 						}
+
 						buf.append(files[i]);
 						buf.append(" ; ");
 						buf.setLength(buf.length() - 2);
@@ -245,7 +246,7 @@ public class Gui {
 						try {
 							fileContent = FileUtils.readFileToString(wordListFile, "UTF-8");
 						} catch (IOException e) {
-							e.printStackTrace();
+							System.err.println("Exception occured...\n" + e.getMessage());
 						}
 
 						fileContent += separator;
@@ -260,7 +261,7 @@ public class Gui {
 					inputCount.setText("" + inputList.getLineCount());
 					bar.setMaximum(Integer.parseInt(inputCount.getText()));
 
-					// Everytime re-input, to clear previous result
+					// Every time re-input, to clear previous result
 					outputList.setText("");
 					outputListHiden.setText("");
 					outputCount.setText("0");
@@ -272,13 +273,15 @@ public class Gui {
 		generate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent event) {
+				// Error Message Box
+				int style = SWT.ICON_ERROR;
+				final MessageBox messageBox = new MessageBox(shell, style);
+
 				// Reset result
 				outputList.setText("");
 
 				// Check if user input any word
 				if (inputList.getText().equals("")) {
-					int style = SWT.ICON_ERROR;
-					MessageBox messageBox = new MessageBox(shell, style);
 					messageBox.setMessage("There is no word to generate flash cards.");
 					messageBox.open();
 					return;
@@ -291,11 +294,10 @@ public class Gui {
 				final String[] wordList = input.split(separator, -1);
 
 				if (proxyIpAddress.isEnabled() && proxyIpAddress.getText().contains(":")) {
+					System.out.println("proxy String: " + proxyStr);
 					proxyStr = proxyIpAddress.getText();
 				} else if (proxyIpAddress.isEnabled() && !proxyIpAddress.getText().contains(":")) {
-					int style = SWT.ICON_ERROR;
-					MessageBox messageBox = new MessageBox(shell, style);
-					messageBox.setMessage("Proxy connection string is not correct.");
+					messageBox.setMessage("Proxy connection string is not correct.\n" + "Proxy connection string should be like this: 10.10.10.10:8080");
 					messageBox.open();
 					return;
 				}
@@ -303,20 +305,39 @@ public class Gui {
 				// Change the button's text
 				generate.setText(IS_RUNNING);
 
+				// From here, allow to cancel
+				cancel.setEnabled(true);
+
 				// Get content from background thread
-				new Thread(new Runnable() {
+				getOxfFlsCards = new Thread(new Runnable() {
 					public void run() {
-						for (String word : wordList) {
+						for (final String word : wordList) {
+							if (Thread.currentThread().isInterrupted())
+								return;
 							System.out.println("INPUT: " + word);
 							try {
-								System.out.println("proxy String: " + proxyStr);
 								final String ankiDeck = generator.generateFlashCards(word, proxyStr);
-								if (!ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
-
-									// Update content on UI thread
+								if (ankiDeck.contains("Please check your connection")) {
 									Display.getDefault().asyncExec(new Runnable() {
 										public void run() {
-											// Update result to UI
+											messageBox.setMessage("Please check your connection...\n" + "Cannot get oxford dictionnary's content.");
+											messageBox.open();
+
+											generate.setText(RUN);
+											cancel.setEnabled(false);
+										}
+									});
+									return;
+								} else if (ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
+									Display.getDefault().asyncExec(new Runnable() {
+										public void run() {
+											messageBox.setMessage("THIS WORD DOES NOT EXIST...! [" + word + "]");
+											messageBox.open();
+										}
+									});
+								} else {
+									Display.getDefault().asyncExec(new Runnable() {
+										public void run() {
 											outputListHiden.append(ankiDeck);
 											outputList.append(generator.wrd + "\t" + generator.wordType + "\t" + generator.phonetic + "\t" + generator.pro_uk + "\t" + generator.pro_us + "\n");
 											outputCount.setText("" + (outputList.getLineCount() - 1));
@@ -326,7 +347,8 @@ public class Gui {
 									});
 								}
 							} catch (IOException e) {
-								e.printStackTrace();
+								System.err.println("Exception occured...\n" + e.getMessage());
+								return;
 							}
 						}
 
@@ -336,15 +358,25 @@ public class Gui {
 								generate.setText(RUN);
 
 								// Message "completed"
-								int style = SWT.ICON_ERROR;
+								int style = SWT.ICON_INFORMATION;
 								MessageBox messageBox = new MessageBox(shell, style);
+
 								messageBox.setMessage("Completed.");
 								messageBox.open();
-								return;
+
+								cancel.setEnabled(false);
+
+								if (Integer.parseInt(outputCount.getText()) < Integer.parseInt(inputCount.getText())) {
+									messageBox.setMessage("There are some wrong spelling words in your list.");
+									messageBox.open();
+								}
 							}
 						});
+
 					}
-				}).start();
+				});
+
+				getOxfFlsCards.start();
 			}
 		});
 
@@ -363,9 +395,11 @@ public class Gui {
 
 				// User has selected to save a file
 				FileDialog dlg = new FileDialog(shell, SWT.SAVE);
+
 				dlg.setFilterNames(FILTER_NAMES);
 				dlg.setFilterExtensions(FILTER_EXTS);
 				String fileName = saveFileName(dlg);
+
 				if (outputListHiden.getText() != "") {
 					try {
 						File file = new File(fileName);
@@ -373,10 +407,23 @@ public class Gui {
 						writer.write(outputListHiden.getText());
 						writer.close();
 					} catch (IOException e) {
-						System.out.println("Exception occured: File not saved!");
-						e.printStackTrace();
+						System.err.println("Exception occured...\n" + e.getMessage());
 					}
 				}
+			}
+		});
+
+		/* Monitor and handle cancel events */
+		cancel.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				// interrupt the getOxfFlsCards thread
+				getOxfFlsCards.interrupt();
+
+				int style = SWT.ICON_INFORMATION;
+				MessageBox messageBox = new MessageBox(shell, style);
+				messageBox.setMessage("Canceled.");
+				messageBox.open();
 			}
 		});
 
@@ -414,6 +461,7 @@ public class Gui {
 			}
 		});
 
+		// End of create Contents of Gui Class
 	}
 
 	/**
