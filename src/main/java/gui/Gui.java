@@ -41,6 +41,7 @@ public class Gui {
 
 	// Proxy Connection String
 	private String proxyStr = "";
+	boolean isUseProxy = false;
 
 	// Get system separator
 	final String separator = System.lineSeparator();
@@ -279,6 +280,8 @@ public class Gui {
 
 				// Reset result
 				outputList.setText("");
+				outputListHiden.setText("");
+				outputCount.setText("0");
 
 				// Check if user input any word
 				if (inputList.getText().equals("")) {
@@ -294,8 +297,8 @@ public class Gui {
 				final String[] wordList = input.split(separator, -1);
 
 				if (proxyIpAddress.isEnabled() && proxyIpAddress.getText().contains(":")) {
-					System.out.println("proxy String: " + proxyStr);
 					proxyStr = proxyIpAddress.getText();
+					System.out.println("proxy String: " + proxyStr);
 				} else if (proxyIpAddress.isEnabled() && !proxyIpAddress.getText().contains(":")) {
 					messageBox.setMessage("Proxy connection string is not correct.\n" + "Proxy connection string should be like this: 10.10.10.10:8080");
 					messageBox.open();
@@ -304,17 +307,19 @@ public class Gui {
 
 				// Change the button's text
 				generate.setText(IS_RUNNING);
-				
+
 				// Disable elements
 				generate.setEnabled(false);
 				open.setEnabled(false);
 				save.setEnabled(false);
-				useProxy.setEnabled(false);
 
-				boolean isSelected = useProxy.getSelection();
-				proxyLabel.setEnabled(isSelected);
-				proxyIpAddress.setEnabled(isSelected);
-				
+				useProxy.setEnabled(false);
+				isUseProxy = proxyLabel.isEnabled() && proxyIpAddress.isEnabled();
+				if (isUseProxy) {
+					proxyLabel.setEnabled(false);
+					proxyIpAddress.setEnabled(false);
+				}
+
 				// From here, allow to cancel
 				cancel.setEnabled(true);
 
@@ -358,6 +363,29 @@ public class Gui {
 								}
 							} catch (IOException e) {
 								System.err.println("Exception occured...\n" + e.getMessage());
+								Display.getDefault().asyncExec(new Runnable() {
+									public void run() {
+										messageBox.setMessage("Please check your connection.\n" + "Maybe proxy connection string is not correct.");
+										messageBox.open();
+										
+										// Change the button's text
+										generate.setText(RUN);
+										
+										// Change the button's text
+										cancel.setEnabled(false);
+
+										// Enable elements
+										open.setEnabled(true);
+										save.setEnabled(true);
+										generate.setEnabled(true);
+
+										useProxy.setEnabled(true);
+										if (isUseProxy) {
+											proxyLabel.setEnabled(true);
+											proxyIpAddress.setEnabled(true);
+										}
+									}
+								});
 								return;
 							}
 						}
@@ -376,16 +404,17 @@ public class Gui {
 
 								// Change the button's text
 								cancel.setEnabled(false);
-								
+
 								// Enable elements
 								open.setEnabled(true);
 								save.setEnabled(true);
 								generate.setEnabled(true);
+
 								useProxy.setEnabled(true);
-								
-								boolean isSelected = useProxy.getSelection();
-								proxyLabel.setEnabled(isSelected);
-								proxyIpAddress.setEnabled(isSelected);
+								if (isUseProxy) {
+									proxyLabel.setEnabled(true);
+									proxyIpAddress.setEnabled(true);
+								}
 
 								if (Integer.parseInt(outputCount.getText()) < Integer.parseInt(inputCount.getText())) {
 									messageBox.setMessage("There are some wrong spelling words in your list.");
@@ -445,16 +474,17 @@ public class Gui {
 
 				// Change the button's text
 				generate.setText(RUN);
-				
+
 				// Enable elements
 				generate.setEnabled(true);
 				open.setEnabled(true);
 				save.setEnabled(true);
+
 				useProxy.setEnabled(true);
-				
-				boolean isSelected = useProxy.getSelection();
-				proxyLabel.setEnabled(isSelected);
-				proxyIpAddress.setEnabled(isSelected);
+				if (isUseProxy) {
+					proxyLabel.setEnabled(true);
+					proxyIpAddress.setEnabled(true);
+				}
 
 				// Cannot cancel two times for one run
 				cancel.setEnabled(false);
