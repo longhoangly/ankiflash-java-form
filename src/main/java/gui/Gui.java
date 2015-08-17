@@ -110,7 +110,7 @@ public class Gui {
 		open.setLayoutData(data);
 
 		/* Text contains file paths */
-		fileName = new Text(shell, SWT.BORDER);
+		fileName = new Text(shell, SWT.BORDER | SWT.READ_ONLY);
 		data = new GridData(GridData.FILL_BOTH);
 		data.horizontalSpan = 2;
 		fileName.setLayoutData(data);
@@ -124,7 +124,7 @@ public class Gui {
 		inputCountLabel.setText("Input Words");
 
 		/* Text contains number of input words */
-		inputCount = new Text(shell, SWT.BORDER);
+		inputCount = new Text(shell, SWT.BORDER | SWT.READ_ONLY);
 		data = new GridData(GridData.FILL_BOTH);
 		inputCount.setLayoutData(data);
 		inputCount.setText("0");
@@ -169,7 +169,7 @@ public class Gui {
 		outputCountLabel.setText("Output Cards");
 
 		/* Text contains number of output cards */
-		outputCount = new Text(shell, SWT.BORDER);
+		outputCount = new Text(shell, SWT.BORDER | SWT.READ_ONLY);
 		data = new GridData(GridData.FILL_BOTH);
 		outputCount.setLayoutData(data);
 		outputCount.setText("0");
@@ -304,7 +304,17 @@ public class Gui {
 
 				// Change the button's text
 				generate.setText(IS_RUNNING);
+				
+				// Disable elements
+				generate.setEnabled(false);
+				open.setEnabled(false);
+				save.setEnabled(false);
+				useProxy.setEnabled(false);
 
+				boolean isSelected = useProxy.getSelection();
+				proxyLabel.setEnabled(isSelected);
+				proxyIpAddress.setEnabled(isSelected);
+				
 				// From here, allow to cancel
 				cancel.setEnabled(true);
 
@@ -364,7 +374,18 @@ public class Gui {
 								messageBox.setMessage("Completed.");
 								messageBox.open();
 
+								// Change the button's text
 								cancel.setEnabled(false);
+								
+								// Enable elements
+								open.setEnabled(true);
+								save.setEnabled(true);
+								generate.setEnabled(true);
+								useProxy.setEnabled(true);
+								
+								boolean isSelected = useProxy.getSelection();
+								proxyLabel.setEnabled(isSelected);
+								proxyIpAddress.setEnabled(isSelected);
 
 								if (Integer.parseInt(outputCount.getText()) < Integer.parseInt(inputCount.getText())) {
 									messageBox.setMessage("There are some wrong spelling words in your list.");
@@ -388,7 +409,7 @@ public class Gui {
 				if (outputList.getText() == "") {
 					int style = SWT.ICON_ERROR;
 					MessageBox messageBox = new MessageBox(shell, style);
-					messageBox.setMessage("There is no card to save.");
+					messageBox.setMessage("There is no card to save. Please generate flash cards first!");
 					messageBox.open();
 					return;
 				}
@@ -408,6 +429,8 @@ public class Gui {
 						writer.close();
 					} catch (IOException e) {
 						System.err.println("Exception occured...\n" + e.getMessage());
+					} catch (NullPointerException e) {
+						System.err.println("Exception occured...\n" + e.getMessage());
 					}
 				}
 			}
@@ -419,6 +442,22 @@ public class Gui {
 			public void widgetSelected(SelectionEvent event) {
 				// interrupt the getOxfFlsCards thread
 				getOxfFlsCards.interrupt();
+
+				// Change the button's text
+				generate.setText(RUN);
+				
+				// Enable elements
+				generate.setEnabled(true);
+				open.setEnabled(true);
+				save.setEnabled(true);
+				useProxy.setEnabled(true);
+				
+				boolean isSelected = useProxy.getSelection();
+				proxyLabel.setEnabled(isSelected);
+				proxyIpAddress.setEnabled(isSelected);
+
+				// Cannot cancel two times for one run
+				cancel.setEnabled(false);
 
 				int style = SWT.ICON_INFORMATION;
 				MessageBox messageBox = new MessageBox(shell, style);
