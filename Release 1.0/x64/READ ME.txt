@@ -10,7 +10,7 @@
 	e. In the same folder, there are two new media folders [sounds, images]
 
 3. Import results into Anki Flashcards
-	a. Copy files from sounds and images folder into Anki media folder
+	a. Copy files from "sounds" and "images" folders into Anki media folder
 	b. Import output flash cards (filename1.txt) into Anki Deck
 	c. Enjoy it!
 	
