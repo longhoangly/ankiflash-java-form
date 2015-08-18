@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -42,6 +44,9 @@ public class Gui {
 	// Proxy Connection String
 	private String proxyStr = "";
 	boolean isUseProxy = false;
+
+	// All of wrong spelling words
+	String wrongSpellingWords = "";
 
 	// Get system separator
 	final String separator = System.lineSeparator();
@@ -270,6 +275,14 @@ public class Gui {
 			}
 		});
 
+		/* Monitor and handle input list events */
+		inputList.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent event) {
+				inputCount.setText("" + inputList.getLineCount());
+				bar.setMaximum(Integer.parseInt(inputCount.getText()));
+			}
+		});
+
 		/* Monitor and handle Generate events */
 		generate.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -283,6 +296,8 @@ public class Gui {
 				outputListHiden.setText("");
 				outputCount.setText("0");
 
+				bar.setSelection(0);
+				
 				// Check if user input any word
 				if (inputList.getText().equals("")) {
 					messageBox.setMessage("There is no word to generate flash cards.");
@@ -326,7 +341,8 @@ public class Gui {
 				// Get content from background thread
 				getOxfFlsCards = new Thread(new Runnable() {
 					public void run() {
-						for (final String word : wordList) {
+						for (int i = 0; i < wordList.length; i++) {
+							final String word = wordList[i];
 							if (Thread.currentThread().isInterrupted())
 								return;
 							System.out.println("INPUT: " + word);
@@ -344,12 +360,7 @@ public class Gui {
 									});
 									return;
 								} else if (ankiDeck.contains("THIS WORD DOES NOT EXIST")) {
-									Display.getDefault().asyncExec(new Runnable() {
-										public void run() {
-											messageBox.setMessage("THIS WORD DOES NOT EXIST...! [" + word + "]");
-											messageBox.open();
-										}
-									});
+									wrongSpellingWords += "Line " + (i + 1) + ": " + word + "\n";
 								} else {
 									Display.getDefault().asyncExec(new Runnable() {
 										public void run() {
@@ -367,10 +378,10 @@ public class Gui {
 									public void run() {
 										messageBox.setMessage("Please check your connection.\n" + "Maybe proxy connection string is not correct.");
 										messageBox.open();
-										
+
 										// Change the button's text
 										generate.setText(RUN);
-										
+
 										// Change the button's text
 										cancel.setEnabled(false);
 
@@ -391,6 +402,7 @@ public class Gui {
 						}
 
 						Display.getDefault().asyncExec(new Runnable() {
+
 							public void run() {
 								// Change the button's text
 								generate.setText(RUN);
@@ -417,7 +429,8 @@ public class Gui {
 								}
 
 								if (Integer.parseInt(outputCount.getText()) < Integer.parseInt(inputCount.getText())) {
-									messageBox.setMessage("There are some wrong spelling words in your list.");
+									wrongSpellingWords = wrongSpellingWords.substring(0, wrongSpellingWords.length() - 2);
+									messageBox.setMessage("Cannot generate flash cards for following words:\n" + wrongSpellingWords);
 									messageBox.open();
 								}
 							}
@@ -432,6 +445,7 @@ public class Gui {
 
 		/* Monitor and handle Save events */
 		save.addSelectionListener(new SelectionAdapter() {
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 
