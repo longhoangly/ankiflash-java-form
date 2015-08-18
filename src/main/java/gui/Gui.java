@@ -354,8 +354,22 @@ public class Gui {
 											messageBox.setMessage("Please check your connection...\n" + "Cannot get oxford dictionnary's content.");
 											messageBox.open();
 
+											// Change the button's text
 											generate.setText(RUN);
+
+											// Change the button's text
 											cancel.setEnabled(false);
+
+											// Enable elements
+											open.setEnabled(true);
+											save.setEnabled(true);
+											generate.setEnabled(true);
+
+											useProxy.setEnabled(true);
+											if (isUseProxy) {
+												proxyLabel.setEnabled(true);
+												proxyIpAddress.setEnabled(true);
+											}
 										}
 									});
 									return;
@@ -402,7 +416,6 @@ public class Gui {
 						}
 
 						Display.getDefault().asyncExec(new Runnable() {
-
 							public void run() {
 								// Change the button's text
 								generate.setText(RUN);
