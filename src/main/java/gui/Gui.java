@@ -3,10 +3,12 @@ package gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -80,7 +82,7 @@ public class Gui {
 		Shell shell = new Shell(display, SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
 		shell.setText("Flashcards Generator");
 
-		InputStream stream = Gui.class.getResourceAsStream("favicon.ico");
+		InputStream stream = Gui.class.getResourceAsStream("./dependencies/favicon.ico");
 		Image imgTrayIcon = new Image(display, stream);
 		shell.setImage(imgTrayIcon);
 
@@ -297,7 +299,7 @@ public class Gui {
 				outputCount.setText("0");
 
 				bar.setSelection(0);
-				
+
 				// Check if user input any word
 				if (inputList.getText().equals("")) {
 					messageBox.setMessage("There is no word to generate flash cards.");
@@ -338,6 +340,13 @@ public class Gui {
 				// From here, allow to cancel
 				cancel.setEnabled(true);
 
+				// Copy dependencies
+				try {
+					copyDependencies();
+				} catch (IOException e) {
+					System.err.println("Exception occured...\n" + e.getMessage());
+				}
+				
 				// Get content from background thread
 				getOxfFlsCards = new Thread(new Runnable() {
 					public void run() {
@@ -599,6 +608,24 @@ public class Gui {
 			}
 		}
 		return fileName;
+	}
+
+	/**
+	 * The function to copy dependencies
+	 */
+	public void copyDependencies() throws IOException {
+		File folder = new File("./src/main/java/gui/dependencies");
+		File[] listOfFiles = folder.listFiles();
+
+		System.out.println("------ Copy dependencies -------");
+		for (int i = 0; i < listOfFiles.length; i++) {
+			InputStream inStream = Gui.class.getResourceAsStream("./dependencies/" + listOfFiles[i].getName());
+			FileOutputStream outFile = new FileOutputStream("./images/" + listOfFiles[i].getName());
+			IOUtils.copy(inStream, outFile);
+			System.out.println("Copy file " + listOfFiles[i].getName());
+		}
+		System.out.println("------ Copy progress complete -------");
+		System.out.println();
 	}
 
 	/**

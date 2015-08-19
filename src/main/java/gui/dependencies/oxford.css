@@ -1,0 +1,2538 @@
+/*------------------------------------*\
+    GLOBALLY DEFINED STYLES
+\*------------------------------------*/
+ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+/*
+ *********************************************
+ * IDM new classes
+ *********************************************
+ */
+
+/* Icons (nb: there are 2 types of 'icons', images and divs) */
+
+img.icon {
+    vertical-align: text-bottom;
+    margin-top: 0;
+    margin-right: 2px;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+div.icon {
+    display: inline;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: lighter;
+    font-size: 7pt;
+    text-transform: uppercase;
+    color: #FFF;
+    padding: 0 .6em .2em .6em;
+}
+
+div.icon-helpsym {
+    /*background-color: #e0b900;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    color: #000;*/
+    background-color: transparent;
+    font-family: "verdana";
+    font-weight: bold;
+    color: #276E98;
+    font-variant: small-caps;
+}
+
+div.icon-pvsym {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: lighter;
+    color: #078d8f;
+    font-size: 18px;
+    text-indent: -1em;
+}
+
+div.icon-oppsym {
+    color: #C00B19;
+    background-color: transparent;
+    font-family: Verdana;
+    font-size: 11px;
+    padding: 0;
+    text-transform: lowercase;
+}
+
+div.icon-idsym {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: lighter;
+    color: #35338a;
+    font-size: 19px;
+}
+
+div.icon-synsym {
+    /*background-color: #173a59;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;*/
+    background-color: transparent;
+    font-family: "verdana";
+    font-weight: normal!important;
+    color: #C00B19;
+    text-transform: lowercase;
+    font-size: 11px;
+    padding: 0!important;
+}
+
+.labelsAbout {
+    text-align: left;
+    border: 0px none;
+    width: 100%;    
+}
+
+.labelsAbout .pron-usonly:hover {
+    background-image: url('usonly-audio.png');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+.labelsAbout .pron-usonly {
+    width: 29px;
+    height: 30px;
+    border: 0;
+    background-image: url('usonly-audio.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+}
+
+/* superscript/subscript */
+.sup {
+    vertical-align: super;
+    font-size: 65%;
+}
+.sub {
+    vertical-align: sub;
+    font-size: 65%;
+}
+
+button.key {
+  /*background-image: url(../img/key.gif);*/
+  height:15px;
+  width: 8px;
+  padding: 0px;
+  margin: 0px;
+  cursor: normal;
+  padding: 0px;
+  border: 0px;
+  margin-right: 5px;
+  margin-top: 5px;
+  background-repeat: no-repeat;
+  vertical-align: top;
+}
+
+.block-g {
+  float: right;
+}
+
+.clear {
+    clear: both;
+    height: 2px;
+}
+
+#entryContent .side{
+    float: right;
+    width: 164px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+
+
+/************* Sketch content section *************/
+.ColloPanel, .ThesPanel{
+  font-size: 80%;
+  text-align:left;
+  display:block;
+  border-radius: 9px 9px 9px 9px;
+  border-style: solid;
+  border-color:blue;
+  margin:15px;
+  border-width:1px;
+  padding:3px;
+  column-count:3;
+  column-gap : 0em; 
+  -moz-column-count:3; /* Firefox */
+  -moz-column-gap : 0em; 
+  -webkit-column-count:3; /* Safari and Chrome */
+  -webkit-column-gap : 0em;
+  background-color:#FFF;
+}
+
+ul.sketch{
+    margin-top:0px;
+    margin-left:-20px;
+}
+
+.ColloPanel .xr, .ThesPanel .xr{
+    font-weight:bold;
+    font-size:130%;
+    display:list-item;
+    list-style-type:square;
+    color:#5BA7DA;
+    margin-left:20px;
+}
+
+.CorpusHeader {
+    display:block;
+    padding:3px;
+    font-size:120%;
+    background-color:#00315A;
+    color:white;
+    border-top-left-radius:9px;
+}
+
+.ColloHeader{
+    display:block;
+    color:white;
+    font-weight:bold;
+    background-color:#5BA7DA;
+    font-size:100%;
+    text-transform:uppercase;
+    margin-left:2px;
+    margin-top:2px;
+    padding:3px;
+}
+
+
+/*------------------------------------*\
+    ERROR PAGE /
+    SEARCH ERROR PAGE / 
+    BROWSE DICTIONARY
+\*------------------------------------*/
+
+/* error page */
+#informational-content > h2 {
+    font-family: Georgia, serif;
+}
+/* -end- error page */
+
+/* search error page (search result not found) */
+.search-term {
+    font-weight: bold;
+}
+
+#results-container-all ul li {
+    margin-bottom: 7px;
+}
+/* -end- search error page */
+
+/* browse dictionary */
+#browse > div {
+    margin-bottom: 7px;
+}
+
+#browse #result ul {
+    padding: 0;
+}
+#browse_lists {
+    margin-top: 16px;
+}
+#browse_lists ul {
+    margin-bottom: 10px;
+}
+/* -end- browse dictionary */
+
+/*------------------------------------*\
+    ENTRY WRAP & TOPIC PAGES
+\*------------------------------------*/
+
+/* entry page wrap */ 
+.grey-grad, .idsym-g, .ui-grad dt, .z_idsym {
+    box-shadow: 0 50px 50px -30px white inset;
+    background-color: #cccccc;
+    border: 1px solid #cccccc;
+}
+
+.webtop-g {
+    background-color: #4577bf;
+    margin: 0 -236px 4px -28px;
+    padding: 7px 236px 4px 28px;
+    line-height: 28px;
+}
+
+.webtop-g h2 {
+    font-size: 21px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    /*padding: 0 10px 0 0;*/
+    padding: 0;
+    color: white;
+    line-height: 30px;
+    /*text-shadow: 0 1px 2px #191a1b;*/
+    display: inline-block;
+}
+
+.top-container {
+    background-color: #ecf5ff;
+    margin-right: -250px;
+    margin-left: -28px;
+    margin-bottom:10px;
+    padding: 0 250px 0 28px;
+    clear: both;
+}
+
+.btn.prac-pron {
+    display: none;
+}
+/* -end- entry page wrap */
+
+/* icons */
+.oxford3000, .academic {
+    display: inline-block;
+    background-size:100%;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    margin: 0 0 -8px;
+    position: relative;
+    top: -5px;
+}
+
+.oxford3000:hover, .academic:hover {
+    text-decoration: none;
+}
+
+.oxford3000 {
+    background-image: url("icon-ox3000.png");
+}
+
+.academic {
+    background-image: url("icon-academic.png");
+}
+/* -end- icons */
+
+/* social media buttons */
+.entry-header .share-this-entry {
+    margin: 0;
+    padding-top: 0;
+    display: table;
+}
+
+.entry-header .responsive_entry_center_left {
+    margin-bottom: 0 !important;
+    display: table-cell;
+    float: none;
+}
+
+.entry-header .responsive_entry_center_left_premium {
+    margin-bottom: 0 !important;
+    display: table-cell;
+    float: none;
+}
+
+.entry-header {
+    margin:7px 0;
+    display: table;
+}
+
+.responsive_entry_center p.definition-title, 
+.responsive_entry_center_left_premium p.definition-title{
+    font-size: 11px;
+    line-height: 14px;
+    padding-bottom: 0px;
+    margin-bottom: 0;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.share-this-entry .right-colum {
+    margin: 0;
+    padding-top: 0 !important;
+}
+
+.share-this-entry .col_middle_left,.share-this-entry .right-colum {
+    display: table-cell;
+}
+
+.social-wrap {
+    width: 180px;
+    height: 28px;
+    padding: 2px 0;
+}
+
+.social-wrap a {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 1px 0 0 0;
+    border: 0;
+    background: #4577bf url(social.png) no-repeat;
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+.social-wrap a:hover {
+    background-color: #0d3880;
+}
+
+#plusone-box {
+    display: inline-block;
+    vertical-align: top;
+    margin: 1px 0 0 1px;
+}
+
+.facebook-btn {
+    background-position: 0px 0 !important;
+}
+
+.twitter-btn {
+    background-position: -24px 0 !important;
+}
+
+.stumbleupon-btn {
+    background-position: -48px 0 !important;
+}
+
+.diigo-btn {
+    background-position: -72px 0 !important;
+}
+
+.email-btn {
+    background-position: -96px 0 !important;
+}
+/* -end- social media buttons */
+
+/* image icon */
+#ox-enlarge {
+    float: right;
+    position: relative;
+    z-index: 10;
+    clear: both;
+}
+
+#ox-enlarge img {
+    margin-bottom: 0px;
+}
+
+#ox-enlarge a.topic {
+    display: block;
+    text-align: right;
+    position: relative;
+    /*width: 100px;
+    height: 100px;*/
+    padding: 2px;
+    margin: 0 0 12px 12px;
+    background-color: #c0c0c0;
+}
+
+#ox-enlarge a.topic:hover {
+    text-decoration: none;
+    background-color: #4577bf;
+    color: white;
+}
+#ox-enlarge .ox-enlarge-label {
+    text-indent: 50px;
+    overflow: hidden;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    bottom: 0;
+    right: 0;
+    background-image: url("enlarge-img.png");
+    background-color: inherit;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* -end- image icon */
+
+/* entry page right-hand bar content */
+.relatedentries {
+    max-height: 200px;
+    text-align: left;
+    color: #8f0610;
+    line-height: 1.25;
+}
+
+.relatedentries ul {
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+
+.relatedentries a {
+    color: #000;
+}
+
+#rightcolumn h4.no-rule {
+    margin-top: 0;
+    border-bottom: 0 none;
+}
+
+.no-rule {
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
+dd {
+    overflow: hidden;
+    -webkit-transition: max-height 0.5s;
+    -moz-transition: max-height 0.5s;
+    transition: max-height 0.5s;
+    max-height: 3000px;
+}
+
+.hide + dd {
+  max-height: 0; 
+}
+  
+.ui-grad dt, .ui-grad dd {
+    margin-top: -1px;
+}
+
+.ui-grad ul {
+    margin-left: 14px;
+    margin-right: 14px;
+    padding:0;
+}
+
+.ui-grad dd {
+    border: 1px solid #cccccc;
+}
+
+.ui-grad dt:first-child {
+    border-radius: 8px 8px 0 0;
+    margin-top: 0;
+}
+
+.ui-grad dt {
+    padding: 5px 6px 5px 6px;
+    color: #444444;
+}
+
+.ui-grad dt.hide:hover {
+    cursor: pointer;
+}
+
+.ui-grad dt:not(.hide):before {
+    content: none;
+}
+
+.ui-grad dt:not(.hide) {
+    padding: 6px 14px 5px;
+}
+
+.ui-grad dt.hide:before {
+    background: url(icon-plus-minus-grey.png) 0 -13px no-repeat;
+    background-size: 100%;
+}
+
+.accordion dl {
+    margin: 0;
+}
+
+.accordion .more {
+    display: none;
+}
+
+.accordion .show .more {
+    display: block;
+}
+
+.accordion dt:before {
+    vertical-align: baseline;
+    content: "";
+    display: inline-block;
+    margin-right: 6px;
+    margin-left: -2px;
+    margin-bottom: -1px;
+    width: 13px;
+    height: 13px;
+    background: url(icon-plus-minus-grey.png) 0 0 no-repeat;
+}
+
+.see-more {
+  display: block;
+  padding: 6px;
+  line-height: 18px;
+  text-align: center;
+  border-top: 1px solid #aaaaaa;
+  color: grey; 
+}
+
+.list-col a, .list-col span.selected {
+    display: block;
+    line-height: 20px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    font-weight: normal;
+}
+
+.list-col {
+    padding-left: 0;
+}
+
+.list-col .selected {
+    color: #282828;
+    padding-left: 7px;
+    padding-right: 7px;
+    background-color: #dddddd;
+    border-radius: 4px;
+    margin: 3px -7px 4px;
+}
+
+.list-col h6 {
+    border-bottom: 1px solid silver;
+}
+/* -end- entry page right-hand bar content */
+
+/* topic page entries */
+.topic-explore p {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 15px;
+}
+
+.topic-explore > h3 {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 19px;
+    margin: 0 0 7px;
+    padding: 0;
+}
+
+.topic-explore h4 {
+    border-top: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
+    padding: 8px 0;
+}
+
+.topic-explore ul {
+    padding-left: 0px;
+}
+
+.topic-explore h6 {
+    border: 0px none;
+    margin: 8px 0px 0px 0px;
+}
+
+.topic-explore h6 a {
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.list-nested>li {
+    display: inline-block;
+    padding-right: 15px;
+}
+
+.list-nested-pool>li {
+    background-color: grey;
+    border-bottom: 1px solid white;
+}
+
+.list-nested-pool ul {
+    padding: 3px 0 4px;
+    background: #efefef;
+    background: white;
+}
+
+.wordpool {
+    margin-top: 14px;
+    padding-left: 8px;
+}
+
+.wordpool li {
+    display: inline-block;
+    margin: 0;
+    padding: 0 14px 7px 0;
+}
+
+.wordpool a,.wordpool span {
+    font-weight: normal;
+}
+
+.wordpool-active span {
+    /*font-size: 18px;*/
+    font-weight: bold;
+    /*color: #8f0610;*/
+}
+/* -end- topic page entry */
+
+
+/*------------------------------------*\
+    WORDLIST
+\*------------------------------------*/
+
+/* IDM line */
+.section.partner {
+    margin-top: 2em;
+}
+/* -end- IDM line */
+
+/* wordlist explanation text */
+.wordlist-page h1 {
+    line-height: 1.2em;
+}
+.wordlist-page p {
+    max-width: 700px;
+}
+
+.wordlist-info-page {
+    margin-bottom: 14px;
+}
+.wordlist-info-page .oxford3000-blue, .wordlist-info-page .academic-blue {
+    width: 20px;
+    height: 20px;
+}
+
+.wordlist-info-page ul {
+    padding-left: 20px;
+    list-style-type: disc;
+    margin-bottom: 7px;
+}
+
+.middle_wrap h1 {
+    font-family: Georgia;
+}
+
+.middle_wrap>h1 {
+    margin-top: 7px;
+}
+
+.open-close dt:hover {
+    color: #0d3880;
+}
+
+.ui-plain {
+    max-width: 700px;
+}
+
+.ui-plain dl:first-child {
+    border-top: 1px solid grey;
+}
+
+.ui-plain dt {
+    padding: 7px 7px 7px 21px;
+    color: #282828;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ui-plain dt:before{
+    content:"";
+    position:absolute;
+    width:13px;
+    height:24px;
+    background: url(icon-plus-minus.png) 0 0 no-repeat;
+    background-size:100%;
+    margin: -7px 0 0 -21px;
+}
+
+.ui-plain dt.hide:before {
+    background-position: 0 -50px;
+}
+
+.ui-plain dd {
+    border-bottom: 1px solid silver;
+}
+
+.ui-plain dt:before {
+    position: relative;
+    margin-right: 8px;
+    display: inline-block;
+}
+.topic-desc {
+    max-width: 750px;
+}
+
+.oxford3000-blue, .academic-blue {
+    display: inline-block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    margin: -8px 0 -5px;
+}
+
+.oxford3000-blue {
+    background-image: url("icon-ox3000-blue.png");
+}
+
+.academic-blue {
+    background-image: url("icon-academic-blue.png");
+}
+
+/*.pictures-blue {
+    display: inline-block;
+    background: url("icon-pictures-blue.png") 0 0 no-repeat;
+    width: 30px;
+    height: 30px;
+    margin: -5px 0 -8px;
+}*/
+
+/*.usage-blue {
+    display: inline-block;
+    background: url("icon-usage-blue.png") 0 0 no-repeat;
+    width: 30px;
+    height: 30px;
+    margin: -5px 0 -8px;
+}*/
+/* -end- wordlist explanation text */
+
+/* wordlist wrap */
+.topic-dt .side-selector__left ul ul ul ul li>a {
+    margin-left: -62px;
+    padding-left: 40px;
+    margin-top: 2px;
+    text-decoration: none;
+    background-color: #efefef;
+    background-color: white;
+}
+
+.side-selector {
+  border-radius: 7px;
+  overflow: hidden;
+  background-color: #eee;
+  border: 1px solid #cccccc; }
+
+.side-selector__left,.side-selector__right {
+    padding: 0 0;
+    width: 40%;
+    float: left;
+}
+
+.side-selector__right {
+    width: 60%;
+    float: left;
+    background-color: white;
+}
+
+.side-selector__right .sound.audio_play_button {
+    margin: 0;
+}
+
+@media screen and (max-width: 762px) {
+    .side-selector__left,.side-selector__right {
+        width: 100%;
+        float: none;
+    }
+    .side-selector {
+        margin-right: -15px;
+        margin-left: -15px;
+        border-radius: 0;
+    }
+}
+
+.side-selector__left ul ul ul ul li.is-revealed>a {
+    background-color: #4577bf;
+    color: white;
+}
+
+.side-selector__left .ei-g {
+    margin-top: 0;
+}
+
+.side-selector__left .top-container {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.side-selector__left .top-g {
+    padding: 0;
+}
+
+.side-selector__left .webtop-g {
+    margin: 0 -7px;
+    padding: 6px 7px;
+}
+
+.side-selector__left .link-right {
+    padding-top: 7px;
+}
+/* -end- wordlist wrap */
+
+/* wordlist left-hand navigation */
+#entries-selector {
+    padding: 7px;
+}
+
+#entries-selector ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#entries-selector .wl-select {
+    padding: 0 7px 0 21px;
+    margin: -7px;
+    background: #07255e url(icon-select-arrow.png) 0 top no-repeat;
+}
+
+#entries-selector a,#entries-selector span {
+    padding: 7px 14px;
+    margin-bottom: 2px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+#entries-selector a:hover {
+    background-color: #4577bf;
+    color: white;
+}
+
+#entries-selector .currentpage a,#entries-selector .currentpage span {
+    background-color: #07255e;
+    color: white;
+}
+
+#entries-selector select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    font-size: 15px;
+    outline: none;
+    margin: 0;
+    padding: 8px 15px 9px;
+    background-color: transparent;
+    width: 100%;
+    color: white;
+}
+/* -end- wordlist left-hand navigation */
+
+/* wordlist top right-hand navigation */
+.hideoverflow {
+    /* class to center element which does not have a fixed width */
+    overflow:hidden;
+}
+
+.outer {
+    position:relative; 
+    left: 50%;
+    float:left;
+}
+
+.inner {
+    position:relative;
+    left:-50%;
+    float:left;
+}
+
+.wl-nav {
+    border-color: silver;
+    border: 0;
+}
+
+.wl-nav a,.wl-nav span {
+    display: inline-block;
+    padding: 10px 15px;
+    border-right: 1px solid silver;
+    color: #444444;
+    font-weight: normal;
+}
+
+.wl-nav li:hover {
+    box-shadow: 0 -50px 50px -30px white inset;
+    background-color: #cccccc;
+}
+
+.wl-nav li:hover a {
+    text-decoration: none;
+}
+
+.wl-nav li.activepage {
+    background-color: white;
+}
+
+.wl-nav li.activepage:hover {
+    background-color: white !important;
+    box-shadow: none;
+}
+
+.currentpage a {
+    color: #890017;
+}
+
+.currentpage a .pos {
+    font-weight: normal;
+}
+
+.paging_links{
+    padding: 0;
+}
+
+.paging_links li:last-child a{
+    border-right:0;
+}
+
+.paging_links .page_range {
+    font-family: Verdana;
+    font-weight: bolder;
+    margin-right: 30px;
+    display: inline-block;
+}
+
+.paging_links .page_info {
+    display: inline-block;
+    margin-right: 30px;
+}
+/* -end- wordlist top right-hand navigation */
+
+/* wordlist main section */
+#entrylist1 a {
+    font-weight: bold;
+}
+.result-list1 {
+    padding: 4px 0;
+    list-style-type: none;
+}
+.wordlist-oxford3000 li {
+    padding: 7px;
+}
+.soundList {
+    display: inline;
+}
+/* -end- wordlist main section */
+
+/* language study terms */
+.lang-study-page .pron-g {
+    white-space: normal;
+}
+.lang-col {
+    width: 48%;
+    float: left;
+    padding-right: 12px;
+}
+
+/* -end- language study terms */
+
+
+/*------------------------------------*\
+    MY WORDLIST
+\*------------------------------------*/
+
+/* my wordlist main & view pages */ 
+.mid-grad-bottom, .wl-table tr:first-child {
+	background: #00123c;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #07255e), color-stop(100%, #00123c));
+	background: -webkit-linear-gradient(top, #07255e 0%, #00123c 100%);
+	background: -moz-linear-gradient(top, #07255e 0%, #00123c 100%);
+	background: -ms-linear-gradient(top, #07255e 0%, #00123c 100%);
+	background: linear-gradient(to bottom, #07255e 0%, #00123c 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$blue2', endColorstr='$blue1',GradientType=0 );
+}
+
+.pale-grad, .wl-table tr {
+	background: #ffffff;
+	background: -moz-linear-gradient(top, white 0%, #eeeeee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #eeeeee));
+	background: -webkit-linear-gradient(top, white 0%, #eeeeee 100%);
+	background: -o-linear-gradient(top, white 0%, #eeeeee 100%);
+	background: -ms-linear-gradient(top, white 0%, #eeeeee 100%);
+	background: linear-gradient(to bottom, white 0%, #eeeeee 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+} 
+    
+.wl-table .delete-btn a:before {
+    background: url("btn-trash.png") no-repeat scroll -1px top / 100% auto transparent;
+	pointer-events: all;
+}
+
+.wl-table .btn.delete-btn:hover a:before {
+    background-position: -1px bottom; 
+}
+
+.wl-sub-head {
+    background: #4577bf;
+    background: -moz-linear-gradient(top, #4577bf 0%, #345c95 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4577bf), color-stop(100%,#345c95));
+    background: -webkit-linear-gradient(top, #4577bf 0%,#345c95 100%);
+    background: -o-linear-gradient(top, #4577bf 0%,#345c95 100%);
+    background: -ms-linear-gradient(top, #4577bf 0%,#345c95 100%);
+    background: linear-gradient(to bottom, #4577bf 0%,#345c95 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4577bf', endColorstr='#345c95',GradientType=0 );
+    color: #ffffff;
+}
+
+.btn.test-btn a:before {
+    background: url("btn-test.png") no-repeat scroll -1px top / 100% auto transparent;
+}
+
+.btn.test-btn a, .btn.delete-btn a{
+    padding-left: 28px;
+}
+
+/*.btn.test-btn:hover a:before {
+  background-position: 0 -28px; 
+}*/
+
+.wl-add a:before{
+	background: url("btn-wordlist.png") no-repeat 0px 0px transparent; 
+	background-size: 100%;
+}
+
+.wl-table {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #cccccc;
+    border-collapse: separate;
+}
+
+.wl-table .wl-col1 {
+    text-align: left;
+    font-size: 16px;
+}
+
+.wl-table tr th {   
+    color: white;
+    vertical-align: middle;
+}
+
+.wl-table th, .wl-table td {
+    text-align: center;
+    line-height: 18px;
+    padding: 12px;
+}
+
+.wl-table.wl-edit .wl-col2 {
+    font-style: italic;
+}
+
+.wl-table.wl-edit .wl-col3 {
+    text-align: left;
+}
+    
+.wl-table .wl-col1 a{
+    line-height: 20px;
+    padding-right: 12px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+}
+.entry-word {
+    font-weight: bold;
+    font-family: Arial;
+    color: #4577bf;
+    margin-left: 10px;
+}
+
+.hide-delete-icon {
+    display: none;
+}
+
+.premium .hide-delete-icon {
+    display: block;
+}
+/* -end- my wordlist main & view pages */
+
+/* my wordlist titles */
+h1.my-wordlist-titles {
+    margin: 7px 0 21px;
+}
+
+h2.my-wordlist-titles {
+	font-size: 36px;
+	color: #4577bf;
+	font-weight: bold;
+	padding-left: 0;
+    margin-top: 6px;
+	margin-bottom: 24px;
+    line-height: 1em;
+}
+
+h3.my-wordlist-titles{
+    line-height: 1.5em;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    color: #0d3880;
+}
+h4.my-wordlist-titles {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+h5.my-wordlist-titles {
+    font-size: 18px;
+    line-height: 28px;
+    margin: 0 0 7px;
+    font-weight: bold;
+}
+/* -end- my wordlist titles */
+
+/* my wordlist add to wordlist page */
+.mywordlist-container {
+    padding-left: 15px;
+}
+
+.mywordlist-container > .entry > span.h {
+    display: none;
+}
+.senseinfo {
+    margin-bottom: 6px;
+}
+.senseinfo .sense_check_box {
+    margin-right: 6px;
+}
+#wordlist-select {
+    margin-bottom: 7px;
+}
+/* -end- my wordlist add to wordlist page */
+
+/* my wordlist test me (question) page */
+.test__question-count {
+    margin: -7px -14px 14px;
+    padding: 5px 12px;
+    background-color: #4577bf;
+    color: white;
+}
+
+.test__definition {
+    font-size: 22px;
+    line-height: 26px;
+    color: #07255e;
+    max-width: 650px;
+    font-size: 18px;
+}
+
+.test__definition__wrap {
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.test__definition__wrap .pos {
+    margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.test__definition__wrap p {
+    display: table-cell;
+    padding-right: 14px;
+}
+
+.test__form, #add-wordlist {
+    display: table;
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: top;
+    padding-bottom:10px; 
+}
+
+.test__form .test__answer {
+	font-size: 15px;
+	line-height: 1.6em;
+	width: 350px;
+	float: left;
+	margin-bottom: 7px;
+	margin-right: 14px;
+}
+
+.test_submit_testme {
+	float:left;
+}
+
+/*.test__form input {
+    width: 100%;
+    -webkit-appearance: none;
+}*/
+
+.test__form input[type='text'] {
+	border: none;
+	font-size: 16px;
+	padding: 0 10px;
+	line-height: 30px;
+	height: 30px;
+	border-radius: 6px;
+	background-color: white;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5) inset;
+	color: grey;
+	width: 100%;
+}
+
+.test__form #add-wordlist .test__submit{
+    float: left;
+}
+
+/* targetting only firefox */ 
+/*@-moz-document url-prefix(){
+    .test__form input[type='submit']{
+        width:70px;
+    }
+}/*
+/* -end- my wordlist test me (question) page */
+
+/* my wordlist test me (answers) page */
+.result {
+    display: table-cell;
+    vertical-align: middle; 
+}
+
+.test__attempt, .test__useranswer, .test__skipped {
+    display: inline-block;
+    font-size: 26px;
+    font-weight: bold;
+    width: 100%;
+    margin-left: -30px;
+    padding-left: 30px;
+}
+
+.test__skipped {
+    font-size: 24px;
+}
+
+.test__attempt {
+    color: #C1272D;
+}
+
+.test__useranswer {
+    color: #037531;
+}
+
+.test__correctanswer {
+    font-weight: bold;
+    color: #07255E;
+}
+
+.test__incorrect, .test__correct  {
+    width: 24px;
+    height: 24px;
+    line-height: 20px;
+    background: url(test-cross.png) no-repeat #C1272D;
+    background-size: 100%;
+    border-radius: 24px;
+    border: 2px solid white;
+    vertical-align: top;
+    text-indent: -9999px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.test__correct {
+    background-color: #037531;
+    background-image: url(test-tick.png);
+}
+
+.test__skipped, .test__correcthead{
+    text-transform: capitalize;
+}
+/* -end- my wordlist test me (answers) page */
+
+/* my wordlist test me buttons */
+.test__form .test__answer, .test__form .test__submit, .test__form .test__skip, #check-answer .test__form .test__next, #check-answer .test__form .test__quit {
+  display: table-cell;
+  vertical-align: top; 
+}
+.test__form .test__submit, .test__form .test__next{
+    padding-right: 5px;
+}
+.test__next, .test__quit {
+    float: left;
+}
+/* -end- my wordlist test me buttons */
+
+/* my wordlist error messages */
+.mywordlist-warnings, .error {
+    display: none;
+    color: #c73b2a;
+}
+.mywordlist-warnings#wait, 
+.mywordlist-warnings#test-loading, 
+.mywordlist-warnings#test-saving-score, 
+.mywordlist-warnings#supp {
+    color: #00123c;
+}
+
+.mywordlist-warnings#wait:before, 
+.mywordlist-warnings#test-loading:before, 
+.mywordlist-warnings#test-saving-score:before, 
+.mywordlist-warnings#supp:before {
+    bottom: -2px;
+    content: url("loader-sm.gif");
+    display: inline-block;
+    margin-right: 8px;
+    position: relative;
+}
+
+.mywordlist-warnings#wait:before {
+    content: url("loader-sm-blue.gif");
+}
+
+/*------------------------------------*\
+    PRACTICE PRONUNCIATION
+\*------------------------------------*/
+
+/* my pronunciation practice page */ 
+#pronunciation .responsive_row:first-child {
+    margin-bottom: 0;
+}
+.entry-source {
+    color: white;
+}
+
+h2.entry-word {
+	font-weight: bold;
+	color: #4577bf;
+	font-size: 36px;
+	margin-bottom: 7px;
+	margin-top: 18px;
+	display: block;
+}
+
+h2 .pos {
+	margin-bottom: 6px;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+.pron__wrap h3, .pron_row {
+    max-width: 700px;
+}
+
+.pron__wrap h3 {
+	font-size: 18px;
+	color: #4577bf;
+	margin-top: 12px;
+	margin-bottom: 0;
+	padding-bottom: 3px;
+	padding-left: 0px;
+	border-bottom: 1px solid silver;
+}
+
+.pron__wrap {
+    max-width: 700px;
+}
+
+.pron__wrap h5 {
+    margin-top: 12px;
+    margin-bottom: 0;
+    padding-bottom: 3px;
+    padding-left: 0px;
+    border-bottom: 1px solid silver;
+}
+
+.pron_row {
+    padding: 0;
+    line-height: 39px;
+    height: 39px;
+}
+
+.pron_row .sound {
+    vertical-align: middle;
+}
+
+.pron_row * {
+    display: inline-block;
+}
+
+.pron_row .pron_button {
+    border: 1px solid black;
+    padding: 4px;
+    margin-right: 15px;
+}
+
+.pron_row .pron_button .pron_button_icon {
+    border: 1px solid black;
+    width: 30px;
+    height: 20px;
+}
+/*
+.pron_row {
+	background-color: #f3fafe;
+	padding: 6px 12px;
+	border-bottom: 1px solid silver;
+}
+.pron_row.active {
+    background-color: #E0F2FD;
+}
+*/
+
+.pron_row .pron_button_wrapper {
+    padding: 4px;
+    display: inline-block;
+    background-color: #00123c;
+    height: 34px;
+    margin-left: 7px;
+    border-radius: 18px;
+    display: none;
+    vertical-align: middle;
+    box-shadow: 0 38px 38px -38px #e0f2fd inset;
+}
+
+.pron_row .btn:hover,
+.pron_row input[type='submit']:hover,
+.pron_row .btn.inactive,
+.pron_row input.inactive[type='submit'] {
+    box-shadow: none;
+    border-width: 0;
+}
+
+.pron_row .pron_button_record, 
+.pron_row .pron_button_play, 
+.pron_row .pron_button_stop, 
+.pron_row .pron_record_stop, 
+.pron_row .pron_play_stop {
+    width: 24px;
+    height: 24px;
+    display: block;
+    float: left;
+    margin-right: 6px;
+    background-image: url("play-button-small.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 12px;
+    background-color: silver;
+}
+
+.pron_row .pron_button_record {
+    background-image: url("record-button-small.png");
+}
+
+.pron_row .pron_button_stop, .pron_row .pron_record_stop, .pron_row .pron_play_stop {
+    background-image: url("stop-button-small.png");
+}
+
+.pron_row .button_is_active {
+    background-color: #0d3880;
+    box-shadow: 0 30px 30px -30px #45689f inset;
+}
+
+.pron_row .button_is_playing {
+    background-color: #579a27;
+    box-shadow: 0 30px 30px -30px #45689f inset;
+}
+
+.pron_row .button_is_active.pron_button_record:hover,
+.pron_row .button_is_active.pron_button_play:hover,
+.pron_row .button_is_active.pron_button_stop:hover {
+    background-color: #00123c;
+}
+
+.pron_row.active .pron_button_wrapper {
+    display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+    .pron_row .btn.play,.pron_row input.play[type='submit'] {
+        margin-left: 10px;
+    }
+}
+
+.prac-pron a:before{
+	background: url("btn-prac-pron.png") no-repeat 0px 0px transparent; 
+	background-size:100%;
+}
+
+#pronunciation xr-gs,#pronunciation res-g {
+    display: none;
+}
+/* end my pronunciation practice page */
+
+
+/*------------------------------------*\
+    TOPIC DICTIONARIES
+\*------------------------------------*/
+
+#topic-list dd ul {
+    padding-left: 0;
+}
+
+#topic-list dd ul li {
+    padding-bottom: 7px;
+}
+
+#topic-list dd {
+    border: none;
+    margin-left: 21px;
+}
+
+#topic-list dt {
+    font-weight: normal;
+}
+
+.topic-desc {
+    margin: 7px 0 7px 0;
+}
+
+/*------------------------------------*\
+    RESOURCES
+\*------------------------------------*/
+
+.box-resources {
+    background-image: url("old-ball-resources.png");
+}
+
+.word-list li {
+    display: inline-block;
+    padding: 0 14px 7px 0;
+}
+
+.video-page-wrap h4 {
+    margin: 14px 0 7px;
+}
+.video-player, .video-player__text {
+    display: table-cell;
+    vertical-align: middle; 
+}
+.video-player__text {
+    padding-right: 7px; 
+}
+.video-player {
+    padding-right: 14px;
+    height: 86px;
+    width: 152px; 
+}
+.video-player iframe {
+    display: block; 
+}
+.video__wrap {
+    display: table-row;
+    width: 100%;
+    float: left;
+    margin-bottom: 3px;
+    background-color: #efefef; 
+}
+.video__wrap p {
+    margin-bottom: 0; 
+}
+.video__wrap a {
+    display: block; 
+}
+.video__wrap:last-child {
+    margin-bottom: 0; 
+}
+.video__wrap.full-width {
+    width: 100%;
+    display: block;
+    float: none; 
+}
+
+/*------------------------------------*\
+    GET PREMIUM PAGES
+\*------------------------------------*/
+
+.premium-h {
+    position: relative;
+    margin-bottom: 12px;
+}
+.premium-h .h {
+    position: absolute;
+    color: #ffffff;
+    left: 20px;
+    bottom: 10px;
+}
+.premium-h-img {
+    width: 100%;
+    height: auto;
+}
+
+/*------------------------------------*\
+    ENTRY PAGES
+\*------------------------------------*/
+
+/* global styles */
+.entry {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  color: #333333;
+  line-height: 24px;
+  margin-bottom: 15px;
+}
+.entry a:hover {
+  font-weight: normal;
+}
+
+/* base styles */
+.sans-italic, .ei, .etym_i, .geo, .pos, .reg, .subj, .wfp, .xpos, .webtop-g .pos + .pnc, .collapse .ff, .collapse[title^="AWL Collocations"] .er {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+}
+
+.sans-rom, .def, .dh, .dtxt, .footer, .frac-g, .gl, .gram, .li, li.sn-g:before, .ndv, .shcut, .st, .td, .use, .xr-g, .wfo .wrap, .wfo pnc.wrap, .vp .prefix, .vp pnc.prefix {
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.sans-bold, .cf, .dhb, .dr, .eb, .id, .idm, .if, .pv, .th, .v, .ve, .vp, .wfo, .wfw, .xh, .xw, li_mlt {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.sans-bolditalic, .ebi {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.sans-sc, .sc, .xr-gs .prefix, .xr-gs pnc.prefix, esc {
+  font-family: Arial, sans-serif;
+  font-variant: small-caps;
+}
+
+.serif-bolditalic, .cl, .x .eb {
+  font-family: Georgia, serif;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.serif-italic, .wx, .x, .x-g {
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.serif-rom, .def-qt, .blockquote:before, .blockquote:after, .blockquote pnc.wrap_open, .blockquote pnc.wrap_close {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.phonetics-font, .eph, .phon {
+  font-family: "Lucida Sans Unicode","Lucida Grande";
+}
+
+.entry-box-style, .un, .collapse {
+  background-color: rgba(199, 110, 6, 0.1);
+  display: block;
+  margin: 12px 0 18px 0;
+  position: relative;
+  overflow: hidden;
+}
+.entry-box-style .x-g, .un .x-g, .collapse .x-g {
+  /* example sentences are always inline within boxes */
+  display: inline;
+  margin-left: 4px;
+  position: static;
+}
+
+.top-container .entry-box-style, .top-container .un, .top-container .collapse {
+  /* only for web, boxes in top container */
+  background-color: rgba(69, 119, 191, 0.1);
+  border-left: 3px solid #4577bf;
+}
+.top-container .entry-box-style-heading:before, .top-container .collapse .heading:before, .collapse .top-container .heading:before {
+  background-image: url("icon-plus-minus.png");
+}
+.top-container .entry-box-style-heading:hover, .top-container .collapse .heading:hover, .collapse .top-container .heading:hover, .top-container .entry-box-style-heading:active, .top-container .collapse .heading:active, .collapse .top-container .heading:active, .top-container .unbox.is-active .heading, .unbox.is-active .top-container .heading, .top-container .entry-box-style-heading:focus, .top-container .collapse .heading:focus, .collapse .top-container .heading:focus {
+  background-color: rgba(69, 119, 191, 0.2);
+}
+.top-container .unbox.is-active .heading:before {
+  /* position of icon inside verb forms heading */
+  background-position: center -92px;
+}
+
+.entry-box-style-heading, .collapse .heading, .collapse pnc.heading {
+  padding: 6px 12px 6px 12px;
+  margin: -12px -18px -12px -18px;
+  font-size: 15.5px;
+}
+.entry-box-style-heading:hover, .collapse .heading:hover, .entry-box-style-heading:active, .collapse .heading:active, .unbox.is-active .heading, .unbox.is-active pnc.heading, .entry-box-style-heading:focus, .collapse .heading:focus {
+  /* hover and active states */
+  background-color: rgba(199, 110, 6, 0.2);
+}
+
+/*------------------------------------*\
+    TAGS IN ALPHABETICAL ORDER
+\*------------------------------------*/
+.blockquote {
+  /* block quote style */
+  background-color: rgba(199, 110, 6, 0.1);
+  display: block;
+  padding: 12px 18px 12px 18px;
+  margin: 18px;
+  position: relative;
+}
+
+.bre, .name {
+  /* British English / North American English */
+  display: none;
+}
+
+.cf {
+  /* complement frame */
+  display: inline;
+}
+
+.def {
+  /* definition */
+  display: inline;
+}
+
+.dr {
+  /* derivative headword */
+  font-size: 16px;
+}
+
+.dr-g {
+  /* derivative group */
+  display: block;
+  margin-top: 18px;
+  margin-left: 16px;
+  position: relative;
+}
+.dr-g:before {
+  /* icon before derivative group */
+  content: url("entry-deriv.png");
+  left: -18px;
+  position: absolute;
+  top: 2px;
+}
+
+.dr-gs {
+  /* derivative wrap */
+  display: block;
+}
+
+.esu {
+  /* superscript */
+  font-size: smaller;
+  vertical-align: super;
+}
+
+.footer {
+  font-size: 13px;
+}
+
+.frac-g {
+  /* fraction wrapper */
+  position: relative;
+  top: -3px;
+}
+.frac-g:before {
+  /* fraction separator */
+  content: '/';
+  position: absolute;
+  left: 4px;
+  top: -3px;
+}
+
+.gram-g {
+  /* colour of grammar sections */
+  color: #767676;
+}
+
+.hm, pnc.hm, .xhm {
+  /* homonym number */
+  font-size: smaller;
+  margin-left: 1px;
+  position: relative;
+  top: -5.25px;
+}
+
+.hm-g {
+  /* sense blocks in word origin */
+  display: block;
+}
+
+.idm {
+  /* idiom */
+  font-size: 16px;
+}
+
+.idm-g, .pv-g {
+  /* idioms in entries */
+  margin: 12px 18px 18px 18px;
+  display: block;
+}
+
+.idm-gs, .pv-gs, .wf-g {
+  /* idioms / phrasal verbs box */
+  border: 1px solid rgba(199, 110, 6, 0.4);
+  border-radius: 10px 10px 0 0;
+  display: block;
+  margin: 18px 0 18px 0;
+  overflow: hidden;
+}
+
+.label-g {
+  /* text colour of labels */
+  color: #767676;
+}
+
+li.sn-g:before {
+  /* definition number */
+  color: #00123c;
+  padding-right: 6px;
+  position: absolute;
+  text-align: right;
+  left: -8px;
+  width: 24px;
+}
+
+.ndv {
+  /* non-defining vocabulary */
+  color: #00837d;
+}
+
+.pron-g {
+  /* spacing between pron types */
+  white-space: nowrap;
+}
+
+.pron-g[geo~=br] .prefix {
+  /* British English styling */
+  color: #07255e;
+}
+
+.pron-g[geo~=n_am] .prefix {
+  /* American English styling */
+  color: #8f0610;
+}
+
+.pron-gs {
+  /* pron groups */
+  display: inline;
+}
+
+.pv {
+  /* phrasal verb */
+  display: inline;
+  font-size: 16px;
+}
+
+.pvarr:before {
+  /* arrow within phrasal verbs */
+  content: url("pvarr.png");
+}
+
+.shcut {
+  /* section shortcut */
+  font-size: 16.5px;
+  display: block;
+  margin-top: 18px;
+  border-bottom: 1px solid rgba(199, 110, 6, 0.5);
+}
+
+.sn-g {
+  /* each definition block within entry */
+  display: block;
+  position: relative;
+  margin-top: 12px;
+}
+
+.sn-g[ox3000="y"] .oxford3000 {
+  /* Oxford 3000 icon before sense */
+  background-color: #4577bf;
+  border-radius: 12px;
+  width: 20px;
+  height: 20px;
+  margin: 0 6px 3px 0;
+  position: static;
+  vertical-align: middle;
+}
+
+.sn-gs, .res-g {
+  /* sense group */
+  display: block;
+}
+
+.un {
+  /* usage note/help box (not expandable) */
+  padding: 12px 18px 12px 18px;
+  text-indent: 0;
+}
+
+.vp {
+  /* verb pattern form */
+  margin-right: 12px;
+}
+
+.vp-g {
+  /* verb pattern group */
+  display: block;
+}
+
+.wf-g {
+  /* word family group - border styling at idioms/phrasal verbs box */
+  border-color: rgba(69, 119, 191, 0.4);
+  margin: 6px 0 6px 0;
+  padding: 6px 12px 6px 12px;
+  display: inline-block;
+}
+
+.wfw-g {
+  /* word family word wrap */
+  display: block;
+}
+
+.wx {
+  /* wrong example */
+  text-decoration: line-through;
+}
+
+.x-g {
+  /* example sentence wrap */
+  display: block;
+  margin-top: 6px;
+  position: relative;
+  margin-left: 11px;
+}
+.x-g:before {
+  /* symbol before example sentence wrap */
+  content: url("entry-bullet.png");
+  left: -11px;
+  top: -2px;
+  position: absolute;
+  width: 6px;
+}
+
+.x-gs {
+  /* wrapper around examples [to stop double click on last word in def selecting all text in examples] */
+  display: block;
+}
+
+.xr-gs {
+  /* cross-ref wrap */
+  display: block;
+  margin-top: 6px;
+}
+
+.z_n {
+  /* styling to match definition numbers within BrE */
+  padding-right: 6px !important;
+}
+
+/*------------------------------------*\
+    HIDE ELEMENTS
+\*------------------------------------*/
+.nbsp,
+.side-panel > div,
+.vp-gs > div,
+.top-g .pos-g,
+.z_n + .z,
+.z_gr_br,
+#ox-enlarge + .z,
+.h-g + .z,
+.pron-gs .wrap,
+li.sn-g > .num,
+span[hide~="y"],
+.top-container br {
+  display: none;
+}
+
+/*------------------------------------*\
+    IN-CONTEXT STYLING
+\*------------------------------------*/
+.entry-in-other-dict a {
+  /* link within 'other dictionary' line */
+  font-weight: normal;
+}
+
+.webtop-g .pos {
+  /* part of speech in top container */
+  margin-left: 6px;
+  color: #ffffff;
+}
+.webtop-g .pos + .pnc {
+  /* punctuation between parts of speech */
+  color: #ffffff;
+}
+.webtop-g a:last-of-type {
+  /* spacing after last icon before headword */
+  margin-right: 4px;
+}
+
+.top-g .clear {
+  /* spacing around some elements and buttons */
+  margin-top: 6px;
+}
+.top-g .btn {
+  /* spacing below buttons */
+  margin-bottom: 13px;
+}
+.top-g .btn:hover:not(.inactive) a:before {
+  /* stop icons moving on hover */
+  background-position: 0 bottom;
+}
+.top-g .def {
+  /* display definition within top-g as block */
+  display: block;
+}
+.top-g > .pron-gs {
+  /* display main IPA block */
+  display: block;
+}
+.top-g .v-gs:not([type~="sym"]) {
+  /* variant wrap */
+  display: block;
+}
+
+.top-container + .pv-gs, .top-container + .wf-g {
+  /* remove styling for phrasal verbs in own entry */
+  border-width: 0;
+  margin: -12px 0 0 0;
+  overflow: auto;
+}
+.top-container + .pv-gs .pv-g, .top-container + .wf-g .pv-g {
+  /* spacing for phrasal verbs in own entry */
+  margin: 12px 0 18px 0;
+}
+.top-container + .pv-gs .pv, .top-container + .wf-g .pv {
+  /* header in phrasal verbs in own entry */
+  margin-left: 0;
+}
+.top-container + .pv-gs > .heading, .top-container + .wf-g > .heading {
+  display: none;
+}
+.top-container + .pv-gs .heading, .top-container + .wf-g .heading {
+  /* overwrites phrasal verbs heading style */
+  color: #333333;
+  font-size: 15.5px;
+  padding: 6px 12px 6px 12px;
+}
+.top-container + .pv-gs .xr-gs, .top-container + .wf-g .xr-gs {
+  /* overwrites phrasal verbs styling within entries */
+  margin-top: 6px;
+}
+.top-container + .pv-gs .xr-gs:before, .top-container + .wf-g .xr-gs:before {
+  /* overwrites phrasal verbs styling within entries */
+  display: inline;
+}
+.top-container + .pv-gs .Ref, .top-container + .wf-g .Ref {
+  /* overwrites phrasal verbs styling within entries */
+  display: inline;
+  margin: 0;
+}
+
+.if-g .pron-gs {
+  /* pronunciation within irregular form group */
+  display: inline;
+}
+
+ol.h-g, ol.pv-g, ol.idm-g {
+  /* definition list */
+  list-style-type: none;
+  padding-left: 0;
+  counter-reset: num;
+}
+ol.h-g li.sn-g, ol.pv-g li.sn-g, ol.idm-g li.sn-g {
+  /* each def in list */
+  padding-left: 24px;
+}
+ol.h-g li.sn-g:before, ol.pv-g li.sn-g:before, ol.idm-g li.sn-g:before {
+  /* definition number */
+  content: counter(num) " ";
+  counter-increment: num;
+}
+ol.h-g > .res-g, ol.h-g .sn-gs > .xr-gs, ol.pv-g > .res-g, ol.pv-g .sn-gs > .xr-gs, ol.idm-g > .res-g, ol.idm-g .sn-gs > .xr-gs {
+  /* extra collapse boxes */
+  margin-left: 24px;
+}
+
+.def .xr-gs {
+  /* cross refs as part of main text in definition */
+  display: inline;
+}
+.def .xr-gs:before {
+  /* hide arrow when cross-ref is in definition */
+  display: none;
+}
+
+.x-g .cf {
+  /* spacing after complement frame within examples */
+  margin-right: 6px;
+}
+
+.xr-gs:before {
+  /* arrow before cross-ref prefix */
+  content: url("entry-arrow.png");
+  margin-right: 4px;
+  position: relative;
+  top: -1px;
+  width: 13px;
+}
+
+.ndv .xh {
+  /* styling for cross-refs within ndv */
+  font-weight: normal;
+}
+
+.sep + .sep {
+  /* two adjacent separators */
+  display: none;
+}
+
+.idm-gs > .heading, .idm-gs pnc.heading, .pv-gs > .heading, .pv-gs pnc.heading {
+  display: block;
+  font-size: 18px;
+  padding: 12px 18px 0 18px;
+  color: #C76E06;
+}
+.idm-gs > .xr-gs, .pv-gs > .xr-gs {
+  /* cross-refs in idioms/phrasal verbs */
+  margin: 12px 0 12px 0;
+}
+.idm-gs .un, .pv-gs .un {
+  /* help box in idioms/phrasal verbs */
+  margin-left: 18px;
+  margin-right: 18px;
+}
+
+.pv-gs .xr-gs {
+  /* inner box within phrasal verbs */
+  margin-top: 0;
+}
+.pv-gs .xr-gs:before {
+  display: none;
+}
+.pv-gs .heading {
+  /* phrasal verb heading */
+  margin-bottom: 6px;
+  display: block;
+  font-size: 18px;
+  padding: 12px 18px 0 18px;
+  color: #C76E06;
+}
+.pv-gs .Ref {
+  /* phrasal verb cross refs */
+  display: block;
+  margin: 6px 18px;
+}
+.pv-gs .Ref .pvarr:before {
+  /* arrow within phrasal verbs */
+  content: url("pvarr-blue.png");
+}
+
+.idm-g .top-container, .pv-g .top-container {
+  /* remove default styling from top-container */
+  padding: 0;
+  margin: 0 0 -6px 0;
+  background-color: transparent;
+}
+.idm-g .top-container .clear, .idm-g .top-container .btn, .idm-g .top-container br, .pv-g .top-container .clear, .pv-g .top-container .btn, .pv-g .top-container br {
+  /* remove default styling from items in top-container */
+  display: none;
+}
+.idm-g .v-gs, .pv-g .v-gs {
+  /* variants */
+  display: block;
+}
+.idm-g .idm + .label-g, .pv-g .idm + .label-g {
+  /* label after idiom head */
+  margin-left: 6px;
+}
+
+.wfo .sym_first:after, .wfo pnc.sym_first:after {
+  /* space after not equals sign */
+  content: " ";
+}
+
+.blockquote .p {
+  /* lines within blockquote */
+  display: block;
+  margin: 0;
+}
+.blockquote .wrap {
+  display: none;
+}
+.blockquote:before, .blockquote:after, .blockquote pnc.wrap_open, .blockquote pnc.wrap_close {
+  /* quote marks */
+  color: #C76E06;
+  font-size: 80px;
+  position: absolute;
+}
+.blockquote:before, .blockquote pnc.wrap_open {
+  /* opening quotes */
+  left: -20px;
+  position: absolute;
+  top: 24px;
+}
+.blockquote:after, .blockquote pnc.wrap_close {
+  /* closing quotes */
+  right: -20px;
+  bottom: 0;
+}
+.blockquote:before {
+  /* opening quotes */
+  content: "\201C";
+}
+.blockquote:after {
+  /* closing quotes */
+  content: "\201D";
+}
+
+.frac-g .num {
+  /* numerator */
+  font-size: smaller;
+  position: relative;
+  top: -5px;
+  margin-right: 3px;
+}
+.frac-g .den {
+  /* denominator */
+  font-size: smaller;
+  vertical-align: sub;
+}
+
+.un .x-gs {
+  /* examples in note boxes */
+  display: inline;
+}
+
+.dr-gs .top-container {
+  /* derivative top container */
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+.dr-gs .clear {
+  /* derivative clear div */
+  display: none;
+}
+.dr-gs .sn-g {
+  /* derivative sense group */
+  margin-top: 6px;
+}
+.dr-gs .sym_first {
+  /* derviative icons next to headword */
+  margin-right: 6px;
+}
+.dr-gs .oxford3000 {
+  /* derivative icon */
+  background-image: url("icon-ox3000-blue.png");
+  width: 25px;
+  height: 25px;
+  top: -2px;
+}
+.dr-gs .academic {
+  /* derivative icon */
+  background-image: url("icon-academic-blue.png");
+  width: 25px;
+  height: 25px;
+  top: -2px;
+}
+.dr-gs .pos-g {
+  /* derivative part of speech */
+  display: inline;
+}
+.dr-gs .top-g > span {
+  /* all first-level elements in top-g */
+  margin-right: 4px;
+}
+
+.entry[dict~="oaad"] .collapse[title^="Grammar"] .p {
+  /* each item within bullet list - copied from collapse bullet below */
+  margin-top: 3px;
+  margin-left: 16px;
+  position: relative;
+  display: block;
+}
+.entry[dict~="oaad"] .collapse[title^="Grammar"] .p:before {
+  /* bullet character before each item */
+  content: url("entry-sqbullet.png");
+  position: absolute;
+  left: -15px;
+  top: -1px;
+  width: 7px;
+}
+
+/*------------------------------------*\
+    COLLAPSE STYLING
+\*------------------------------------*/
+.collapse {
+  padding: 12px 18px 12px 18px;
+  border-left: 3px solid #C76E06;
+}
+.collapse .heading, .collapse pnc.heading, .collapse .body, .collapse .h1, .collapse .li, .collapse .inline {
+  /* display contents of box on separate lines */
+  display: block;
+}
+.collapse .heading:hover, .collapse pnc.heading:hover {
+  cursor: pointer;
+}
+.collapse .heading:before, .collapse pnc.heading:before {
+  /* plus to denote more content when hidden */
+  width: 14px;
+  height: 14px;
+  background-image: url("icon-plus-minus-orange.png");
+  background-size: 100% auto;
+  background-position: center bottom;
+  content: "";
+  display: inline-block;
+  margin-right: 12px;
+  position: relative;
+  top: 1px;
+}
+.collapse .body, .collapse .heading + .def {
+  /* body content of box */
+  display: none;
+}
+.collapse .h1 {
+  /* main heading within box content */
+  color: #C76E06;
+  font-size: 19.5px;
+  margin: 12px 0 6px 0;
+  font-weight: bold;
+  display: block;
+}
+.collapse .h3, .collapse .h2 {
+  /* sub-headings in box */
+  font-size: 16.5px;
+  margin: 6px 0 3px 0;
+  font-weight: bold;
+  display: block;
+  border-bottom: 1px solid rgba(199, 110, 6, 0.5);
+  color: #333333;
+}
+.collapse .x-gs {
+  /* spacing around example sentences within box */
+  margin-bottom: 6px;
+  display: inline;
+}
+.collapse .x-g:before {
+  /* hide example sentence bullet */
+  display: none;
+}
+.collapse .x-g:not(:first-of-type):before {
+  /* separator between inline examples */
+  content: url("entry-bullet.png");
+  left: -3px;
+  margin-left: -2px;
+  margin-right: 1px;
+  position: relative;
+  display: inline;
+  width: 6px;
+}
+.collapse .p {
+  /* spacing within Wordfinder box */
+  margin: 0;
+  display: block;
+}
+.collapse .p .xr-gs {
+  /* cross-references inside paragraph */
+  display: inline;
+  margin: 0;
+}
+.collapse .p .xr-gs[type~="pdf"] {
+  display: none;
+}
+.collapse .inline, .collapse ul.inline {
+  /* sub-headings on same line */
+  display: block;
+  font-size: 16.5px;
+  margin-bottom: 12px;
+}
+.collapse .inline .li, .collapse ul.inline .li {
+  /* each item within list */
+  display: inline-block;
+  font-weight: bold;
+}
+.collapse .inline .li:not(:last-of-type):after, .collapse ul.inline .li:not(:last-of-type):after {
+  /* bullet character after each item */
+  content: url("entry-bullet.png");
+  margin-left: 5px;
+  position: relative;
+  top: -2px;
+  width: 6px;
+}
+.collapse .deflist .li, .collapse ul.deflist .li {
+  /* each item within list */
+  margin-top: 6px;
+  padding-left: 12px;
+  text-indent: -12px;
+}
+.collapse .deflist .li > .eb, .collapse ul.deflist .li > .eb {
+  /* styling for eb within deflist */
+  color: #C76E06;
+  font-size: 16px;
+}
+.collapse .bullet, .collapse ul.bullet {
+  /* bullet list in box */
+  display: block;
+  margin: 6px 0 12px 0;
+}
+.collapse .bullet .li, .collapse ul.bullet .li {
+  /* each item within bullet list */
+  margin-top: 3px;
+  margin-left: 16px;
+  position: relative;
+  display: block;
+}
+.collapse .bullet .li:before, .collapse ul.bullet .li:before {
+  /* bullet character before each item */
+  content: url("entry-sqbullet.png");
+  position: absolute;
+  left: -15px;
+  top: -1px;
+  width: 7px;
+}
+.collapse .table {
+  /* table within box */
+  margin: 12px;
+  display: table;
+}
+.collapse .th, .collapse .td {
+  /* table spacing */
+  padding: 2px 12px 2px 12px;
+  border-bottom: 1px solid rgba(199, 110, 6, 0.5);
+  display: table-cell;
+}
+.collapse .th {
+  /* table header cells */
+  background-color: rgba(199, 110, 6, 0.2);
+}
+.collapse .tr {
+  /* table rows */
+  display: table-row;
+}
+
+.collapse[title^="Extra"] .x-g {
+  /* display extra examples */
+  display: block;
+  position: relative;
+}
+.collapse[title^="Extra"] .x-g:before {
+  /* bullet character before first example */
+  content: url("entry-bullet.png");
+  display: inline;
+  left: -11px;
+  margin: 0;
+  position: absolute;
+  top: -2px;
+  width: 6px;
+}
+
+.collapse[title^="Wordfinder"] .xr-gs:before {
+  /* hide arrows in wordfinder */
+  display: none;
+}
+
+.collapse[title^="More Like This"] .inline .li {
+  /* each word in more like this */
+  font-weight: normal;
+  font-size: 15px;
+}
+.collapse[title^="More Like This"] .sep {
+  /* commas in more like this */
+  display: none;
+}
+
+.collapse[title^="AWL Collocations"] .er {
+  /* part of speech in Academic collocations */
+  font-weight: normal;
+}
+.collapse[title^="AWL Collocations"] .h3 {
+  /* heading 3 in Academic collocations */
+  border-bottom: 0;
+}
+.collapse[title^="AWL Collocations"] .h3 .inline {
+  /* heading 3 + inline in Academic collocations */
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.unbox.is-active .heading, .unbox.is-active pnc.heading {
+  /* active state is same as hover/active/focus */
+  margin-bottom: 12px;
+}
+.unbox.is-active .heading:hover, .unbox.is-active pnc.heading:hover {
+  cursor: pointer;
+}
+.unbox.is-active .heading:before, .unbox.is-active pnc.heading:before {
+  background-position: center top;
+}
+.unbox.is-active .body, .unbox.is-active .heading + .def {
+  /* display box content */
+  display: block;
+}
