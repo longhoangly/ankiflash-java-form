@@ -82,7 +82,7 @@ public class Gui {
 		Shell shell = new Shell(display, SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
 		shell.setText("Flashcards Generator");
 
-		InputStream stream = Gui.class.getResourceAsStream("./dependencies/favicon.ico");
+		InputStream stream = Gui.class.getResourceAsStream("favicon.ico");
 		Image imgTrayIcon = new Image(display, stream);
 		shell.setImage(imgTrayIcon);
 
@@ -614,15 +614,14 @@ public class Gui {
 	 * The function to copy dependencies
 	 */
 	public void copyDependencies() throws IOException {
-		File folder = new File("./src/main/java/gui/dependencies");
-		File[] listOfFiles = folder.listFiles();
+		String [] listOfFiles = new String[] {"btn-wordlist.png", "enlarge-img.png", "entry-arrow.png", "entry-bullet.png", "entry-sqbullet.png", "favicon.ico", "go-to-top.png", "icon-academic.png", "icon-audio-bre.png", "icon-audio-name.png", "icon-ox3000.png", "icon-plus-minus-grey.png", "icon-plus-minus-orange.png", "icon-plus-minus.png", "icon-select-arrow-circle-blue.png", "interface.css", "login-bg.png", "oxford.css", "pvarr-blue.png", "pvarr.png", "responsive.css", "search-mag.png", "usonly-audio.png"}; 
 
 		System.out.println("------ Copy dependencies -------");
 		for (int i = 0; i < listOfFiles.length; i++) {
-			InputStream inStream = Gui.class.getResourceAsStream("./dependencies/" + listOfFiles[i].getName());
-			FileOutputStream outFile = new FileOutputStream("./images/" + listOfFiles[i].getName());
+			InputStream inStream = Gui.class.getResourceAsStream(""+listOfFiles[i]);
+			FileOutputStream outFile = new FileOutputStream("./images/" + listOfFiles[i]);
 			IOUtils.copy(inStream, outFile);
-			System.out.println("Copy file " + listOfFiles[i].getName());
+			System.out.println("Copy file " + listOfFiles[i]);
 		}
 		System.out.println("------ Copy progress complete -------");
 		System.out.println();
