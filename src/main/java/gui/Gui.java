@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -489,8 +489,8 @@ public class Gui {
 				if (outputListHiden.getText() != "") {
 					try {
 						File file = new File(fileName);
-						FileWriter writer = new FileWriter(file);
-						writer.write(outputListHiden.getText());
+						FileWriterWithEncoding writer = new FileWriterWithEncoding(file, "UTF-8");
+						writer.write(outputListHiden.getText().toString());
 						writer.close();
 					} catch (IOException e) {
 						System.err.println("Exception occured...\n" + e.getMessage());
@@ -618,8 +618,8 @@ public class Gui {
 
 		System.out.println("------ Copy dependencies -------");
 		for (int i = 0; i < listOfFiles.length; i++) {
-			InputStream inStream = Gui.class.getResourceAsStream(""+listOfFiles[i]);
-			FileOutputStream outFile = new FileOutputStream("./images/" + listOfFiles[i]);
+			InputStream inStream = Gui.class.getResourceAsStream(listOfFiles[i]);
+			FileOutputStream outFile = new FileOutputStream("./images/"+listOfFiles[i]);
 			IOUtils.copy(inStream, outFile);
 			System.out.println("Copy file " + listOfFiles[i]);
 		}

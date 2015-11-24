@@ -168,7 +168,7 @@ public class Generator {
 				System.err.println("Exception occured...\n" + e.getMessage());
 			}
 		}
-		example = example.replaceFirst(word, "{{c1::" + word + "}}");
+		example = example.replaceAll(word, "{{c1::" + word + "}}");
 		example = "<link type=\"text/css\" rel=\"stylesheet\" href=\"oxford.css\">" + example;
 
 		return example;
