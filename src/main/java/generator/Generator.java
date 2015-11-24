@@ -145,9 +145,9 @@ public class Generator {
 
 		/* Get combined word phonetic */
 		String phonetic = phoneticBrE + phoneticNAmE;
-		phonetic = phonetic.replaceFirst("BrE//", "BrE /");
-		phonetic = phonetic.replaceFirst("//NAmE//", "/  NAmE /");
-		phonetic = phonetic.replaceFirst("//", "/");
+		phonetic = phonetic.replaceAll("BrE//", "BrE /");
+		phonetic = phonetic.replaceAll("//NAmE//", "/  NAmE /");
+		phonetic = phonetic.replaceAll("//", "/");
 		phonetic = "<span class=\"phon\">" + phonetic + "</span>";
 
 		return phonetic;
