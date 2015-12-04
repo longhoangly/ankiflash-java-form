@@ -43,7 +43,7 @@ public class Generator {
 
 		/* Build URL */
 		String url = "";
-		if (word.matches("/www.oxfordlearnersdictionaries.com/i")) {
+		if (word.contains("www.oxfordlearnersdictionaries.com")) {
 			url = word;
 		} else {
 			word = word.replace(" ", "%20");
@@ -110,7 +110,7 @@ public class Generator {
 		oxfContent = "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" + "<link type=\"text/css\" rel=\"stylesheet\" href=\"interface.css\">" + "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" + "<link type=\"text/css\" rel=\"stylesheet\" href=\"oxford.css\">" + "<div id=\"entryContent\" class=\"responsive_entry_center_wrap\">" + oxfContentElement.toString() + "</div>" + "</html>";
 		oxfContent = oxfContent.replace("\t", "");
 		oxfContent = oxfContent.replace("\n", "");
-		oxfContent = oxfContent.replace("class=\"unbox\"", "class=\"unbox is-active\"");
+		oxfContent = oxfContent.replaceAll("class=\"unbox\"", "class=\"unbox is-active\"");
 		System.out.println("OXFORD CONTENT: " + oxfContent);
 
 		/* Get Oxford copy right */
